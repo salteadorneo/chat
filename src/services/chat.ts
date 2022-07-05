@@ -29,3 +29,12 @@ export const createOrJoinConversation = async (
       })
     })
   }
+
+export const getConversations = async (
+  { accessToken } : { accessToken: string }) => {
+  const client = new Client(accessToken)
+
+  const conversations = await client.getSubscribedConversations()
+
+  return conversations
+}

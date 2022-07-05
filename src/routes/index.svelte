@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>secret chat 🥷</title>
+	<title>Alice</title>
 	<meta name="description" content="El chat secreto!" />
 </svelte:head>
 
