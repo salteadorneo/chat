@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Gantari&display=swap');
 
-body {
-    font-family: 'Gantari';
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    font-family: 'Gantari';
+}

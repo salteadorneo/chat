@@ -16,12 +16,19 @@
 	});
 
 	afterUpdate(() => {
-		window.scrollTo(0, div.scrollHeight);
+		div.scrollTo(0, div.scrollHeight);
 	});
 </script>
 
-<div bind:this={div}>
+<div bind:this={div} class="messages">
 	{#each messages as message}
 		<Message {message} />
 	{/each}
 </div>
+
+<style>
+.messages {
+    max-height: 200px;
+    overflow: auto;
+}
+</style>
