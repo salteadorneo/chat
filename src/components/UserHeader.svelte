@@ -1,21 +1,25 @@
 <script lang="ts">
 	import { user } from '../store';
+
+	import { getAccessToken } from '../services/user';
+
 	import LoggedUserHeader from './LoggedUserHeader.svelte';
 
 	let anonymousName = '';
 	let showAnonymousInput = false;
 
-	function handleAnonymousLogin(e: SubmitEvent) {
+	async function handleAnonymousLogin(e: SubmitEvent) {
 		e.preventDefault();
 		console.log(anonymousName);
-		// guardamos el anonymousName
+		const accessToken = await getAccessToken({ token: `anonymous_${anonymousName}` });
 		user.set({
 			name: anonymousName,
 			avatar: `https://i.pravatar.cc/150?u=${anonymousName}`,
 			email: 'a@a.com',
-			token: `anonymous_${anonymousName}`,
+			token: accessToken,
 			userName: anonymousName
 		});
+		localStorage.user = JSON.stringify($user);
 	}
 
 	function handleToggleAnonymous() {

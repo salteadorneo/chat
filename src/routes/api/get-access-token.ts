@@ -22,7 +22,7 @@ export const get: RequestHandler = async ({ request }) => {
     ? jwt.split('_')[1]
     : null
 
-  // Lo que haríamos de verdad
+  // TODO
   // const user = await supabase.auth.api.getUser(jwt)
   // const identity = user.data.user_metadata.user_name
   // console.log({identity})

@@ -12,8 +12,7 @@
 
 		if (!$user || $user?.token == null) return;
 
-		const accessToken = await getAccessToken({ token: $user.token });
-		const conversation = await createOrJoinConversation({ room, accessToken });
+		const conversation = await createOrJoinConversation({ room, accessToken: $user.token });
 
 		if (conversation) {
 			activeConversation.set(conversation);
