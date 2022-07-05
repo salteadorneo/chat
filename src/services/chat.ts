@@ -22,8 +22,6 @@ export const createOrJoinConversation = async (
             }
           }
 
-          console.log(conversation)
-
           conversation?.join()
 
           resolve(conversation)          

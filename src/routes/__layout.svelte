@@ -9,7 +9,6 @@
 
 	onMount(async () => {
 		const localUser = JSON.parse(localStorage.user) ?? {};
-		console.log(localUser)
 		user.set(localUser);
 	});
 </script>

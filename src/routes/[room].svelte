@@ -12,15 +12,11 @@
 
 	onMount(async () => {
 		const localUser = JSON.parse(localStorage.user) ?? {};
-		console.log(localUser)
 		user.set(localUser);
 		
-		console.log($user?.token)
 		if (!$user || $user?.token == null) return;
 
 		const conversation = await createOrJoinConversation({ room: $page.params.room, accessToken: $user.token });
-
-		console.log(conversation)
 
 		if (conversation) {
 			activeConversation.set(conversation);
