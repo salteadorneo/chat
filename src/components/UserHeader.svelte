@@ -6,11 +6,9 @@
 	import LoggedUserHeader from './LoggedUserHeader.svelte';
 
 	let anonymousName = '';
-	let showAnonymousInput = false;
 
 	async function handleAnonymousLogin(e: SubmitEvent) {
 		e.preventDefault();
-		console.log(anonymousName);
 		const accessToken = await getAccessToken({ token: `anonymous_${anonymousName}` });
 		user.set({
 			name: anonymousName,
@@ -21,16 +19,12 @@
 		});
 		localStorage.user = JSON.stringify($user);
 	}
-
-	function handleToggleAnonymous() {
-		showAnonymousInput = !showAnonymousInput;
-	}
 </script>
 
 <header class="flex justify-center items-center gap-x-4">
 	{#if $user}
 		<LoggedUserHeader />
-	{:else if showAnonymousInput}
+	{:else}
 		<form on:submit={handleAnonymousLogin}>
 			<input
 				class="border-2 p-2"
@@ -39,9 +33,5 @@
 				placeholder="Indica tu nombre anónimo"
 			/>
 		</form>
-	{:else}
-		<button on:click={handleToggleAnonymous} class="py-2 flex items-center gap-1 hover:underline">
-			Entrar como anónimo
-		</button>
 	{/if}
 </header>

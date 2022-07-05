@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 
 	import { getAccessToken } from '../services/user';
-	import { createOrJoinConversation, getConversations } from '../services/chat';
+	import { createConversation, getConversations } from '../services/chat';
 	import { activeConversation, user } from '../store';
 
 	let rooms:Array<{ uniqueName: string, status: string, createdBy: string }> = []
@@ -22,7 +22,7 @@
 
 		if (!$user || $user?.token == null) return;
 
-		const conversation = await createOrJoinConversation({ room, accessToken: $user.token });
+		const conversation = await createConversation({ room, accessToken: $user.token });
 
 		if (conversation) {
 			activeConversation.set(conversation);

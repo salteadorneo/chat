@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { user } from '../store';
 	import UserHeader from '../components/UserHeader.svelte';
-	import RoomSelect from '../components/RoomSelect.svelte';
 </script>
 
 <svelte:head>
@@ -9,5 +7,5 @@
 	<meta name="description" content="El chat secreto!" />
 </svelte:head>
 
+<h1>Quiero ser anfitrión</h1>
 <UserHeader />
-{#if $user}<RoomSelect />{/if}
