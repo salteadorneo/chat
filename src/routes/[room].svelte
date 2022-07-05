@@ -6,11 +6,11 @@
 	import { joinConversation, updateAttributesConversation } from '../services/chat';
 	import { activeConversation, user } from '../store';
 
-	import Participants from '../components/Participants.svelte';
 	import Conversation from '../components/Conversation.svelte';
 	import ConversationInput from '../components/ConversationInput.svelte';
-
-	let loading = true
+	import Participants from '../components/Participants.svelte';
+	
+	import type { Participant } from '@twilio/conversations';
 
 	onMount(async () => {
 		const localUser = JSON.parse(localStorage.user) ?? {};
@@ -27,8 +27,12 @@
 				activeConversation.set(data.conversation)
 			});
 
-			if ($activeConversation.createdBy == $user?.name)
-				await updateAttributesConversation({ room: $page.params.room, accessToken: $user.token, params: { loading: true } });
+			$activeConversation.on('participantJoined', (participant: Participant) => {
+				activeConversation.set(participant.conversation)
+			});
+
+			// if ($activeConversation.createdBy == $user?.name)
+			// 	await updateAttributesConversation({ room: $page.params.room, accessToken: $user.token, params: { loading: true } });
 		}
 	});
 	
@@ -38,17 +42,16 @@
 		if (!$user || $user?.token == null) return;
 
 		let conversation = await updateAttributesConversation({ room: $page.params.room, accessToken: $user.token, params: { loading: !$activeConversation.attributes.loading } });
-		console.log(conversation)
 		
 		if (conversation) activeConversation.set(conversation);
 	}
-
 </script>
 
 {#if $activeConversation?.uniqueName}
 	{#if $activeConversation.attributes.loading}
 		Loading...
 		{#if $activeConversation.createdBy == $user?.name}
+			<Participants />
 			<button on:click={handleStart}>Empezar</button>
 		{/if}
 	{:else}
@@ -56,7 +59,6 @@
 			<h2 class="text-3xl">
 				{$activeConversation.uniqueName}
 			</h2>
-			<Participants />
 			<Conversation />
 			<ConversationInput />
 		</div>

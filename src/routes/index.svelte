@@ -1,11 +1,10 @@
 <script lang="ts">
+	import RoomSelect from '../components/RoomSelect.svelte';
 	import UserHeader from '../components/UserHeader.svelte';
-</script>
 
-<svelte:head>
-	<title>Alice</title>
-	<meta name="description" content="El chat secreto!" />
-</svelte:head>
+	import { user } from '../store';
+</script>
 
 <h1>Quiero ser anfitrión</h1>
 <UserHeader />
+{#if $user}<RoomSelect />{/if}
