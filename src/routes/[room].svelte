@@ -51,7 +51,7 @@
 	{#if $activeConversation.attributes.loading}
 		Loading...
 		{#if $activeConversation.createdBy == $user?.name}
-			<Participants />
+			<Participants add />
 			<button on:click={handleStart}>Empezar</button>
 		{/if}
 	{:else}
@@ -59,6 +59,7 @@
 			<h2 class="text-3xl">
 				{$activeConversation.uniqueName}
 			</h2>
+			<Participants />
 			<Conversation />
 			<ConversationInput />
 		</div>

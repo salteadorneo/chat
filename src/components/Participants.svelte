@@ -1,4 +1,6 @@
 <script lang="ts">
+	export let add = false
+
 	import { activeConversation } from '../store';
 
 	let participant = ''
@@ -13,9 +15,10 @@
 <div>
 	{$activeConversation.participants.size} participante/s
 
-	<form on:submit={handleAddParticipant}>
-		<input type="text" placeholder="Nombre" bind:value={participant} />
-	</form>
-
-	(<button on:click={handleAddParticipant}>Añadir</button>)
+	{#if add}
+		<form on:submit={handleAddParticipant}>
+			<input type="text" placeholder="Nombre" bind:value={participant} />
+		</form>
+		(<button on:click={handleAddParticipant}>Añadir</button>)
+	{/if}
 </div>
