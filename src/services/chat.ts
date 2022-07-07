@@ -1,67 +1,39 @@
 import { Client } from '@twilio/conversations'
 
+export let client : Client
+
+export const initialize = (
+  { accessToken } : { accessToken: string }
+  ) => {
+    if (!client) {
+      client = new Client(accessToken);
+      console.log('initialized')
+    }
+  }
+
 export const createConversation = async (
-  { room, accessToken } : { room: string, accessToken: string }
+  { room } : { room: string }
   ) => {
-    const client = new Client(accessToken)
-
-    return new Promise(resolve => {
-      client.on('stateChanged', async state => {
-        if (state === 'initialized') {
-          let conversation
-            
-          try {
-            conversation = await client.createConversation({ uniqueName: room, attributes: { loading: true } })
-            conversation?.join()
-          } catch (e) {
-            console.error(e)
-          }
-
-          resolve(conversation)          
-        }
-      })
-    })
-  }
-
-export const joinConversation = async (
-  { room, accessToken } : { room: string, accessToken: string }
-  ) => {
-    const client = new Client(accessToken)
-
-    return new Promise(resolve => {
-      client.on('stateChanged', async state => {
-        if (state === 'initialized') {
-          let conversation
-
-          try {
-            conversation = await client.getConversationByUniqueName(room)
-          } catch (e) {
-            console.error(e)
-          }
-
-          resolve(conversation)          
-        }
-      })
-    })
-  }
-
-export const updateAttributesConversation = async (
-  { room, accessToken, params } : { room: string, accessToken: string, params: any }
-  ) => {
-    const client = new Client(accessToken)
-
-    const conversation = await client.getConversationByUniqueName(room)
-
-    await conversation.updateAttributes(params)
-  
+    const conversation = await client.createConversation({ uniqueName: room, attributes: { loading: true } })
+    conversation?.join()
     return conversation
   }
 
+export const updateAttrConversation = async (
+  { room, params } : { room: string, params: any }
+  ) => {
+    const conversation = await client.getConversationByUniqueName(room)
+    await conversation.updateAttributes(params)
+    return conversation
+  }
+
+export const getConversation = async (
+  { room } : { room: string }
+  ) => {
+    return await client.getConversationByUniqueName(room)
+  }
+
 export const getConversations = async (
-  { accessToken } : { accessToken: string }) => {
-  const client = new Client(accessToken)
-
-  const conversations = await client.getSubscribedConversations()
-
-  return conversations
+  { } : { }) => {
+  return await client.getSubscribedConversations()
 }

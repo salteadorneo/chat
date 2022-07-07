@@ -3,7 +3,6 @@
 	
 	import { goto } from '$app/navigation';
 
-	import { getAccessToken } from '../services/user';
 	import { createConversation, getConversations } from '../services/chat';
 	import { activeConversation, user } from '../store';
 
@@ -13,7 +12,7 @@
 	onMount(async () => {
 		if (!$user || $user?.token == null) return;
 
-		const paginator = await getConversations({ accessToken: $user.token });
+		const paginator = await getConversations({});
 		rooms = paginator.items
 	});
 
@@ -22,7 +21,7 @@
 
 		if (!$user || $user?.token == null) return;
 
-		const conversation = await createConversation({ room, accessToken: $user.token });
+		const conversation = await createConversation({ room });
 
 		if (conversation) {
 			activeConversation.set(conversation);

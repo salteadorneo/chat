@@ -3,7 +3,7 @@
 
 	import { onMount } from 'svelte';
 
-	import { joinConversation, updateAttributesConversation } from '../services/chat';
+	import { initialize, getConversation, updateAttrConversation } from '../services/chat';
 	import { activeConversation, user } from '../store';
 
 	import Conversation from '../components/Conversation.svelte';
@@ -18,7 +18,9 @@
 		
 		if (!$user || $user?.token == null) return;
 
-		const conversation = await joinConversation({ room: $page.params.room, accessToken: $user.token });
+		if ($user) initialize({ accessToken: $user.token});
+
+		const conversation = await getConversation({ room: $page.params.room });
 
 		if (conversation) {
 			activeConversation.set(conversation);
@@ -32,7 +34,7 @@
 			});
 
 			// if ($activeConversation.createdBy == $user?.name)
-			// 	await updateAttributesConversation({ room: $page.params.room, accessToken: $user.token, params: { loading: true } });
+			// 	await updateAttrConversation({ room: $page.params.room, accessToken: $user.token, params: { loading: true } });
 		}
 	});
 	
@@ -41,7 +43,7 @@
 
 		if (!$user || $user?.token == null) return;
 
-		let conversation = await updateAttributesConversation({ room: $page.params.room, accessToken: $user.token, params: { loading: !$activeConversation.attributes.loading } });
+		let conversation = await updateAttrConversation({ room: $page.params.room, params: { loading: !$activeConversation.attributes.loading } });
 		
 		if (conversation) activeConversation.set(conversation);
 	}

@@ -3,11 +3,19 @@
 	
 	import { onMount } from 'svelte';
 
-	import { user } from '../store';
+	import { initialize } from '../services/chat';
 
-	onMount(async () => {
+	import { user } from '../store';
+	
+	import { goto } from '$app/navigation';
+
+	onMount(() => {
 		const localUser = JSON.parse(localStorage.user) ?? {};
 		user.set(localUser);
+
+		if ($user) initialize({ accessToken: $user.token});
+
+		// goto(`/nuevo-juego`);
 	});
 </script>
 

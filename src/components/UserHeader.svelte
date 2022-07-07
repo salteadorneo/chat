@@ -1,11 +1,17 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	import { user } from '../store';
+	
+	import { goto } from '$app/navigation';
 
 	import { getAccessToken } from '../services/user';
 
-	import LoggedUserHeader from './LoggedUserHeader.svelte';
-
 	let anonymousName = '';
+
+	onMount(async () => {
+		if ($user) goto(`/nuevo-juego`);
+	});
 
 	async function handleAnonymousLogin(e: SubmitEvent) {
 		e.preventDefault();
@@ -18,20 +24,18 @@
 			userName: anonymousName
 		});
 		localStorage.user = JSON.stringify($user);
+
+		goto(`/nuevo-juego`);
 	}
 </script>
 
 <header class="flex justify-center items-center gap-x-4">
-	{#if $user}
-		<LoggedUserHeader />
-	{:else}
-		<form on:submit={handleAnonymousLogin}>
-			<input
-				class="border-2 p-2"
-				bind:value={anonymousName}
-				type="text"
-				placeholder="Indica tu nombre anónimo"
-			/>
-		</form>
-	{/if}
+	<form on:submit={handleAnonymousLogin}>
+		<input
+			class="border-2 p-2"
+			bind:value={anonymousName}
+			type="text"
+			placeholder="Apodo"
+		/>
+	</form>
 </header>
