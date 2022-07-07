@@ -4,6 +4,7 @@
 	import { activeConversation } from '../store';
 
 	let participant = ''
+	let participants = [...$activeConversation.participants]
 
 	async function handleAddParticipant(e) {
 		e.preventDefault();
@@ -13,7 +14,9 @@
 </script>
 
 <div>
-	{$activeConversation.participants.size} participante/s
+	{#each participants as participant}
+		<div class="participant">{participant[1].identity}</div>
+	{/each}
 
 	{#if add}
 		<form on:submit={handleAddParticipant}>
@@ -22,3 +25,12 @@
 		(<button on:click={handleAddParticipant}>Añadir</button>)
 	{/if}
 </div>
+
+<style>
+	.participant {
+		display: inline-block;
+		color: white;
+		background: gray;
+		border-radius: 50%;
+	}
+</style>
