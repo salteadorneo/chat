@@ -12,11 +12,14 @@
 	
 	import type { Participant } from '@twilio/conversations';
 
+	import { goto } from '$app/navigation';
+
 	onMount(async () => {
-		const localUser = JSON.parse(localStorage.user) ?? {};
+		const localUser = localStorage.user ? JSON.parse(localStorage.user) : {};
+		console.log(localUser)
 		user.set(localUser);
 		
-		if (!$user || $user?.token == null) return;
+		if (!$user || $user?.token == null) goto('/?ref=' + $page.params.room);
 
 		if ($user) initialize({ accessToken: $user.token});
 
@@ -51,10 +54,11 @@
 
 {#if $activeConversation?.uniqueName}
 	{#if $activeConversation.attributes.loading}
-		Loading...
 		{#if $activeConversation.createdBy == $user?.name}
 			<Participants add />
 			<button on:click={handleStart}>Empezar</button>
+		{:else}
+			Loading...
 		{/if}
 	{:else}
 		<div class="max-w-6xl mx-auto py-2 relative">

@@ -1,10 +1,20 @@
 <script lang="ts">
+	import type { Participant } from '@twilio/conversations';
+
 	export let add = false
 
 	import { activeConversation } from '../store';
 
 	let participant = ''
 	let participants = [...$activeConversation.participants]
+	participants.forEach(async participant => {
+		const participantUser = await participant[1].getUser()
+		console.log(participant[1], participantUser)
+	})
+
+	$activeConversation.on('participantJoined', (participant: Participant) => {
+		participants = [...$activeConversation.participants]
+	});
 
 	async function handleAddParticipant(e) {
 		e.preventDefault();
@@ -20,7 +30,7 @@
 
 	{#if add}
 		<form on:submit={handleAddParticipant}>
-			<input type="text" placeholder="Nombre" bind:value={participant} />
+			<input type="text" placeholder="Nombre" bind:value={participant} autofocus />
 		</form>
 		(<button on:click={handleAddParticipant}>Añadir</button>)
 	{/if}

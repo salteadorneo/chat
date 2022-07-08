@@ -10,10 +10,12 @@
 	import { goto } from '$app/navigation';
 
 	onMount(() => {
-		const localUser = JSON.parse(localStorage.user) ?? {};
+		const localUser = localStorage.user ? JSON.parse(localStorage.user) : {};
 		user.set(localUser);
 
-		if ($user) initialize({ accessToken: $user.token});
+		if (!$user || $user?.token == null) return;
+
+		// if ($user) initialize({ accessToken: $user.token});
 
 		// goto(`/nuevo-juego`);
 	});
