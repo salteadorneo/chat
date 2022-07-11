@@ -3,7 +3,7 @@
 
 	import { onMount } from 'svelte';
 
-	import { initialize, getConversation, updateAttrConversation } from '../services/chat';
+	import { initialize, getConversation, updateAttrConversation, deleteConversation, removeParticipantConversation, leaveConversation } from '../services/chat';
 	import { activeConversation, user } from '../store';
 
 	import Conversation from '../components/Conversation.svelte';
@@ -23,10 +23,8 @@
 
 		if ($user) initialize({ accessToken: $user.token});
 
-		const conversation = await getConversation({ room: $page.params.room });
-
+		const conversation = await refreshConversation({ room: $page.params.room });
 		if (conversation) {
-			activeConversation.set(conversation);
 
 			$activeConversation.on('updated', (data: { conversation: Conversation, updateReasons: Array<[]> }) => {
 				activeConversation.set(data.conversation)
@@ -36,19 +34,54 @@
 				activeConversation.set(participant.conversation)
 			});
 
+			$activeConversation.on('participantLeft', (participant: Participant) => {
+				setTimeout(() => {
+					refreshConversation({ room: $page.params.room });
+				}, 500);
+			});
+
 			// if ($activeConversation.createdBy == $user?.name)
 			// 	await updateAttrConversation({ room: $page.params.room, accessToken: $user.token, params: { loading: true } });
+		} else {
+			goto('/nuevo-juego');
 		}
 	});
+
+	async function refreshConversation({ room }) {
+		const conversation = await getConversation({ room });
+
+		if (!conversation) goto('/nuevo-juego');
+
+		console.log(conversation)
+
+		activeConversation.set(conversation);
+		return conversation;
+	}
 	
 	async function handleStart(e) {
 		e.preventDefault();
 
 		if (!$user || $user?.token == null) return;
 
-		let conversation = await updateAttrConversation({ room: $page.params.room, params: { loading: !$activeConversation.attributes.loading } });
+		let conversation = await updateAttrConversation({ room: $activeConversation.uniqueName, params: { loading: !$activeConversation.attributes.loading } });
 		
 		if (conversation) activeConversation.set(conversation);
+	}
+
+	async function handleDelete(e) {
+		e.preventDefault();
+
+		await deleteConversation({ room: $activeConversation.uniqueName });
+		
+		goto('/nuevo-juego');
+	}
+
+	async function handleRemoveMe(e) {
+		e.preventDefault();
+
+		await leaveConversation({ room: $activeConversation.uniqueName });
+		
+		goto('/nuevo-juego');
 	}
 </script>
 
@@ -56,6 +89,9 @@
 	{#if $activeConversation.attributes.loading}
 		{#if $activeConversation.createdBy == $user?.name}
 			<Participants add />
+			<br />
+			http://localhost:3000/inv/{$activeConversation.uniqueName}
+			<br />
 			<button on:click={handleStart}>Empezar</button>
 		{:else}
 			Loading...
@@ -68,6 +104,8 @@
 			<Participants />
 			<Conversation />
 			<ConversationInput />
+			<button on:click={handleRemoveMe}>remove me</button>
+			<button on:click={handleDelete}>Cerrar</button>
 		</div>
 	{/if}
 {/if}

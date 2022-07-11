@@ -19,6 +19,21 @@ export const createConversation = async (
     return conversation
   }
 
+export const joinConversation = async (
+  { room } : { room: string }
+  ) => {
+    try {
+      console.log('join',room)
+      const conversation = await client.getConversationByUniqueName(room)
+      console.log('join',conversation)
+      conversation?.join()
+      return conversation
+    } catch (e) {
+      console.log(e)
+      return null
+    }
+  }
+
 export const updateAttrConversation = async (
   { room, params } : { room: string, params: any }
   ) => {
@@ -27,13 +42,40 @@ export const updateAttrConversation = async (
     return conversation
   }
 
+export const deleteConversation = async (
+  { room } : { room: string }
+  ) => {
+    const conversation = await client.getConversationByUniqueName(room)
+    await conversation.delete()
+    return true
+  }
+
+export const leaveConversation = async (
+  { room } : { room: string }
+  ) => {
+    const conversation = await client.getConversationByUniqueName(room)
+    await conversation.leave()
+    return true
+  }
+
+export const removeParticipantConversation = async (
+  { room, participant } : { room: string, participant }
+  ) => {
+    const conversation = await client.getConversationByUniqueName(room)
+    return await conversation.removeParticipant(participant)
+  }
+
 export const getConversation = async (
   { room } : { room: string }
   ) => {
-    return await client.getConversationByUniqueName(room)
+    try {
+      return await client.getConversationByUniqueName(room)
+    } catch (e) {
+      return null
+    }
   }
 
-export const getConversations = async (
-  { } : { }) => {
-  return await client.getSubscribedConversations()
-}
+  export const getConversations = async (
+    { } : { }) => {
+    return await client.getSubscribedConversations()
+  }

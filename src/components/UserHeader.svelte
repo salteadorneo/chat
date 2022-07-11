@@ -25,7 +25,7 @@
 		});
 		localStorage.user = JSON.stringify($user);
 
-		goto(`/nuevo-juego`);
+		// goto(`/nuevo-juego`);
 	}
 </script>
 

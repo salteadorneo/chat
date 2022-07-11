@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { Participant } from '@twilio/conversations';
+	
+	import { removeParticipantConversation } from '../services/chat';
 
 	export let add = false
 
@@ -16,16 +18,24 @@
 		participants = [...$activeConversation.participants]
 	});
 
+	$activeConversation.on('participantLeft', (participant: Participant) => {
+		participants = [...$activeConversation.participants]
+	});
+
 	async function handleAddParticipant(e) {
 		e.preventDefault();
 		let newParticipant = await $activeConversation.add(participant)
 		participant = ''
 	}
+
+	async function handleRemoveParticipant(participant) {
+		await removeParticipantConversation({ room: $activeConversation.uniqueName, participant: participant });
+	}
 </script>
 
 <div>
 	{#each participants as participant}
-		<div class="participant">{participant[1].identity}</div>
+		<div class="participant" on:click={() => handleRemoveParticipant(participant[0])}>{participant[1].identity}</div>
 	{/each}
 
 	{#if add}
