@@ -6,12 +6,12 @@ const TWILIO_API_KEY = import.meta.env.VITE_PUBLIC_TWILIO_API_KEY
 const TWILIO_API_SECRET = import.meta.env.VITE_PUBLIC_TWILIO_API_SECRET
 const SERVICE_SID = import.meta.env.VITE_PUBLIC_SERVICE_SID
 
-console.log({
-  TWILIO_ACCOUNT_SID,
-  TWILIO_API_KEY,
-  TWILIO_API_SECRET,
-  SERVICE_SID,
-})
+// console.log({
+//   TWILIO_ACCOUNT_SID,
+//   TWILIO_API_KEY,
+//   TWILIO_API_SECRET,
+//   SERVICE_SID,
+// })
 
 export const get: RequestHandler = async ({ request }) => {
   const jwt = request.headers.get('jwt')
@@ -45,7 +45,7 @@ export const get: RequestHandler = async ({ request }) => {
 
   accessToken.addGrant(conversationsGrant)
 
-  console.log(accessToken.toJwt())
+  // console.log(accessToken.toJwt())
 
   return {
     status: 200,

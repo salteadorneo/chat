@@ -11,7 +11,6 @@
 	let participants = [...$activeConversation.participants]
 	participants.forEach(async participant => {
 		const participantUser = await participant[1].getUser()
-		console.log(participant[1], participantUser)
 	})
 
 	$activeConversation.on('participantJoined', (participant: Participant) => {

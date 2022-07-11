@@ -14,7 +14,6 @@
 
 	onMount(async () => {
 		if (user) {
-			console.log(refRoom)
 			// if (refRoom) goto('/' + refRoom);
 			// else goto(`/nuevo-juego`);
 		}

@@ -18,7 +18,6 @@
 		text-align: right;
 		margin-left: 40%;
 	}
-
 	.remote {
 		text-align: left;
 		margin-right: 40%;

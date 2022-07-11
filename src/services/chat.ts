@@ -7,7 +7,6 @@ export const initialize = (
   ) => {
     if (!client) {
       client = new Client(accessToken);
-      console.log('initialized')
     }
   }
 
@@ -19,7 +18,8 @@ export const createConversation = async (
       conversation?.join()
       return conversation
     } catch (e) {
-      console.log(e)
+      // console.log(e)
+      return null
     }
   }
 
@@ -27,13 +27,11 @@ export const joinConversation = async (
   { room } : { room: string }
   ) => {
     try {
-      console.log('join',room)
       const conversation = await client.getConversationByUniqueName(room)
-      console.log('join',conversation)
       conversation?.join()
       return conversation
     } catch (e) {
-      console.log(e)
+      // console.log(e)
       return null
     }
   }
@@ -46,7 +44,7 @@ export const updateAttrConversation = async (
       await conversation.updateAttributes(params)
       return conversation
     } catch (e) {
-      console.log(e)
+      // console.log(e)
       return null
     }
   }
@@ -59,7 +57,7 @@ export const deleteConversation = async (
       await conversation.delete()
       return true
     } catch (e) {
-      console.log(e)
+      // console.log(e)
       return false
     }
   }
@@ -72,7 +70,7 @@ export const leaveConversation = async (
       await conversation.leave()
       return true
     } catch (e) {
-      console.log(e)
+      // console.log(e)
       return false
     }
   }

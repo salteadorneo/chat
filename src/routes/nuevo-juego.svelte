@@ -12,7 +12,6 @@
 
 	onMount(async () => {
 		const localUser = localStorage.user ? JSON.parse(localStorage.user) : {};
-		console.log(localUser)
 		user.set(localUser);
 		
 		if (!$user || $user?.token == null) goto('/');
