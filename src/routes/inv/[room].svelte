@@ -21,12 +21,21 @@
 		try {
 			const conversation = await getConversation({ room: $page.params.room });
 			if (conversation) goto('/' + conversation.channelState.uniqueName);
+			else getConversationTimeout()
 		} catch (e) {
 			console.log(e)
 		}
 		// else goto('/nuevo-juego');
 
 	});
+
+	async function getConversationTimeout() {
+		return setTimeout(async () => {
+			const conversation = await getConversation({ room: $page.params.room });
+			if (conversation) goto('/' + conversation.channelState.uniqueName);
+			else getConversationTimeout()
+		}, 2000);
+	}
 </script>
 
 <h1>Me han invitado</h1>

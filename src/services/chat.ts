@@ -14,9 +14,13 @@ export const initialize = (
 export const createConversation = async (
   { room } : { room: string }
   ) => {
-    const conversation = await client.createConversation({ uniqueName: room, attributes: { loading: true } })
-    conversation?.join()
-    return conversation
+    try {
+      const conversation = await client.createConversation({ uniqueName: room, attributes: { loading: true } })
+      conversation?.join()
+      return conversation
+    } catch (e) {
+      console.log(e)
+    }
   }
 
 export const joinConversation = async (
@@ -37,25 +41,40 @@ export const joinConversation = async (
 export const updateAttrConversation = async (
   { room, params } : { room: string, params: any }
   ) => {
-    const conversation = await client.getConversationByUniqueName(room)
-    await conversation.updateAttributes(params)
-    return conversation
+    try {
+      const conversation = await client.getConversationByUniqueName(room)
+      await conversation.updateAttributes(params)
+      return conversation
+    } catch (e) {
+      console.log(e)
+      return null
+    }
   }
 
 export const deleteConversation = async (
   { room } : { room: string }
   ) => {
-    const conversation = await client.getConversationByUniqueName(room)
-    await conversation.delete()
-    return true
+    try {
+      const conversation = await client.getConversationByUniqueName(room)
+      await conversation.delete()
+      return true
+    } catch (e) {
+      console.log(e)
+      return false
+    }
   }
 
 export const leaveConversation = async (
   { room } : { room: string }
   ) => {
-    const conversation = await client.getConversationByUniqueName(room)
-    await conversation.leave()
-    return true
+    try {
+      const conversation = await client.getConversationByUniqueName(room)
+      await conversation.leave()
+      return true
+    } catch (e) {
+      console.log(e)
+      return false
+    }
   }
 
 export const removeParticipantConversation = async (
@@ -75,7 +94,11 @@ export const getConversation = async (
     }
   }
 
-  export const getConversations = async (
-    { } : { }) => {
-    return await client.getSubscribedConversations()
+export const getConversations = async (
+  { } : { }) => {
+    try {
+      return await client.getSubscribedConversations()
+    } catch (e) {
+      return null
+    }
   }

@@ -20,7 +20,7 @@
 		if ($user) initialize({ accessToken: $user.token});
 
 		const paginator = await getConversations({});
-		if (paginator.items[0]) goto('/' + paginator.items[0].channelState.uniqueName);
+		if (paginator && paginator.items[0]) goto('/' + paginator.items[0].channelState.uniqueName);
 	});
 </script>
 
