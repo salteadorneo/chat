@@ -1,21 +1,21 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
-	import { getConversations, initialize } from '../services/chat';
+	import { user } from '../store';
 
 	import { onMount } from 'svelte';
 
+	import { getConversations, initialize } from '../services/chat';
+
 	import CreateRoom from '../components/CreateRoom.svelte';
-	
-	import { user } from '../store';
-	import { goto } from '$app/navigation';
 
 	onMount(async () => {
 		const localUser = localStorage.user ? JSON.parse(localStorage.user) : {};
 		console.log(localUser)
 		user.set(localUser);
 		
-		if (!$user || $user?.token == null) goto('/?ref=' + $page.params.room);
+		if (!$user || $user?.token == null) goto('/');
 
 		if ($user) initialize({ accessToken: $user.token});
 

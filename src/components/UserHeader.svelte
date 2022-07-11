@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 
 	import { user } from '../store';
+	import { page } from '$app/stores';
 	
 	import { goto } from '$app/navigation';
 
@@ -9,8 +10,14 @@
 
 	let anonymousName = '';
 
+	const refRoom = $page.params.room ?? $page.url.searchParams.get('ref')
+
 	onMount(async () => {
-		if ($user) goto(`/nuevo-juego`);
+		if (user) {
+			console.log(refRoom)
+			// if (refRoom) goto('/' + refRoom);
+			// else goto(`/nuevo-juego`);
+		}
 	});
 
 	async function handleAnonymousLogin(e: SubmitEvent) {
@@ -25,7 +32,8 @@
 		});
 		localStorage.user = JSON.stringify($user);
 
-		// goto(`/nuevo-juego`);
+		if (refRoom) goto('/' + refRoom);
+		else goto(`/nuevo-juego`);
 	}
 </script>
 

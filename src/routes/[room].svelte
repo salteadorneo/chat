@@ -19,7 +19,7 @@
 		console.log(localUser)
 		user.set(localUser);
 		
-		if (!$user || $user?.token == null) goto('/?ref=' + $page.params.room);
+		// if (!$user || $user?.token == null) goto('/?ref=' + $page.params.room);
 
 		if ($user) initialize({ accessToken: $user.token});
 
