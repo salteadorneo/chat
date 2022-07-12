@@ -32,8 +32,8 @@
 		background: var(--background);
 		border: 1px solid var(--primary);
 		border-radius: 50%;
-		width: 45px;
-		line-height: 45px;
+		width: 42px;
+		line-height: 40px;
 		text-align: center;
 		margin: 0 0 0 -18px;
 	}
