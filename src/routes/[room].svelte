@@ -54,26 +54,34 @@
 	async function refreshConversation({ room }) {
 		const conversation = await getConversation({ room });
 
-		if (!conversation) goto('/nuevo-juego');
+		if (!conversation) {
+			if (gameover) goto('/game-over');
+			else if (win) goto('/win');
+			else goto('/nuevo-juego');
+		}
 
 		activeConversation.set(conversation);
 		return conversation;
 	}
 
+	let win = false
 	async function handleDelete(e) {
 		e.preventDefault();
+		
+		win = true
 
 		await deleteConversation({ room: $activeConversation.uniqueName });
-		
-		goto('/nuevo-juego');
+
+		goto('/win');
 	}
 
+	let gameover = false
 	async function handleRemoveMe(e) {
 		e.preventDefault();
 
+		gameover = true
+
 		await leaveConversation({ room: $activeConversation.uniqueName });
-		
-		goto('/nuevo-juego');
 	}
 </script>
 
