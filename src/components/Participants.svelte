@@ -3,22 +3,22 @@
 	
 	import { activeConversation } from '../store';
 
-	let participants = [...$activeConversation.participants]
-	participants.forEach(async participant => {
-		const participantUser = await participant[1].getUser()
-	})
+	// let participants = [...$activeConversation.participants]
+	// participants.forEach(async participant => {
+	// 	const participantUser = await participant[1].getUser()
+	// })
 
-	$activeConversation.on('participantJoined', (participant: Participant) => {
-		participants = [...$activeConversation.participants]
-	});
+	// $activeConversation.on('participantJoined', (participant: Participant) => {
+	// 	participants = [...$activeConversation.participants]
+	// });
 
-	$activeConversation.on('participantLeft', (participant: Participant) => {
-		participants = [...$activeConversation.participants]
-	});
+	// $activeConversation.on('participantLeft', (participant: Participant) => {
+	// 	participants = [...$activeConversation.participants]
+	// });
 </script>
 
 <div>
-	{#each participants as participant}
+	{#each [...$activeConversation.participants] as participant}
 		<div class="participant">{participant[1].identity}</div>
 	{/each}
 	{#each $activeConversation.attributes.invitations||[] as participant}

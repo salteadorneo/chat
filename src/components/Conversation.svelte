@@ -27,8 +27,9 @@
 </div>
 
 <style>
-.messages {
-    max-height: 200px;
-    overflow: auto;
-}
+	.messages {
+		padding: 20px 0 5px;
+		height: 100%;
+		overflow: auto;
+	}
 </style>

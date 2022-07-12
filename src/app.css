@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gantari&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gantari:wght@400;700;800&display=swap');
 
 :root {
     --primary: #1dbfb3;
@@ -11,6 +11,7 @@
 
 body {
     font-family: 'Gantari';
+    font-weight: 400;
     background: url(./assets/background.svg) no-repeat center / cover var(--background);
     color: #f7f7f7;
     margin: 0;
@@ -34,6 +35,12 @@ button {
     font-size: 10px;
     text-transform: uppercase;
     padding: 7px 28px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 10px 0;
 }
 
 h3 {

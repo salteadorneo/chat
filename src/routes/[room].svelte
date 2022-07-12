@@ -17,6 +17,7 @@
 	import Loading from '../components/Loading.svelte';
 	import InviteParticipants from '../components/InviteParticipants.svelte';
 	import Game from '../components/Game.svelte';
+	import Question from '../components/Question.svelte';
 
 	onMount(async () => {
 		const localUser = localStorage.user ? JSON.parse(localStorage.user) : {};
@@ -89,13 +90,27 @@
 			<Loading />
 		{/if}
 	{:else}
-		<div>
-			<h2>El juego de Alice</h2>
+		<section class="fullheight">
 			<Participants />
+			
+			<h1>El juego de Alice</h1>
+
+			<Question />
+			
 			<Conversation />
+
 			<ConversationInput />
+
 			<button on:click={handleRemoveMe}>remove me</button>
 			<button on:click={handleDelete}>Cerrar</button>
-		</div>
+		</section>
 	{/if}
 {/if}
+
+<style>
+	.fullheight {
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+	}
+</style>
