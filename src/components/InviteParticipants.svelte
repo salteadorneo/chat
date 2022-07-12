@@ -87,7 +87,7 @@
 
 	<form on:submit={handleAddParticipant}>
 		<button>+</button>
-		<input type="text" placeholder="Añadir jugador" bind:value={participant} autofocus />
+		<input type="text" placeholder="Añadir jugador" bind:value={participant} />
 	</form>
 </div>
 
