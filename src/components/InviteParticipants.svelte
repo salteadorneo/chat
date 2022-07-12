@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { Participant } from '@twilio/conversations';
-	
 	import { removeParticipantConversation, updateAttrConversation } from '../services/chat';
 
 	import { activeConversation } from '../store';
@@ -13,18 +11,6 @@
 	const ICONS = [Hearts, Spades, Clubs, Diamonds];
 
 	let participant = ''
-	let participants = [...$activeConversation.participants]
-	participants.forEach(async participant => {
-		const participantUser = await participant[1].getUser()
-	})
-
-	$activeConversation.on('participantJoined', (participant: Participant) => {
-		participants = [...$activeConversation.participants]
-	});
-
-	$activeConversation.on('participantLeft', (participant: Participant) => {
-		participants = [...$activeConversation.participants]
-	});
 
 	async function handleAddParticipant(e) {
 		e.preventDefault();
@@ -48,16 +34,21 @@
 	async function handleRemoveParticipant(participant) {
 		await removeParticipantConversation({ room: $activeConversation.uniqueName, participant: participant });
 	}
+
+	function handleShareLink(participant) {
+		const url = `${window.location.origin}/inv/${$activeConversation.uniqueName}/${participant}`;
+		navigator.clipboard.writeText(url);
+	}
 </script>
 
 <div>
 	<h3>Jugadores</h3>
 
-	{#each participants as participant, i}
-		<div class="participant" on:click={() => handleRemoveParticipant(participant[0])}><span><img src={ICONS[i]} alt="" /></span> {participant[1].identity} <button></button></div>
+	{#each [...$activeConversation.participants] as participant, i}
+		<div class="participant"><span><img src={ICONS[i]} alt="" /></span> {participant[1].identity} <div class="actions"><button on:click={() => handleShareLink(participant[1].identity)}>S</button><button on:click={() => handleRemoveParticipant(participant[0])}>E</button></div></div>
 	{/each}
 	{#each $activeConversation.attributes.invitations||[] as participant, i}
-		<div class="participant"><span><img src={ICONS[i]} alt="" /></span> {participant} <button></button></div>
+		<div class="participant"><span><img src={ICONS[i]} alt="" /></span> {participant} <div class="actions"><button on:click={() => handleShareLink(participant)}>S</button></div></div>
 	{/each}
 
 	<form on:submit={handleAddParticipant}>
@@ -85,11 +76,13 @@
 	.participant span img {
 		max-height: 50%;
 	}
+	.participant .actions {
+		margin-left: auto;
+	}
 	.participant button {
 		padding: 0;
 		width: 22px;
 		height: 22px;
-		margin-left: auto;
 		background: var(--primary);
 		color: #f7f7f7;
 	}
