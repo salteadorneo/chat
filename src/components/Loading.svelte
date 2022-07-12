@@ -27,6 +27,8 @@
 		align-items: center;
 		justify-content: center;
 		height: 100vh;
+		opacity: 0;
+		animation: fadeIn 1s ease-in-out forwards;
 	}
 
 	.spinner {
