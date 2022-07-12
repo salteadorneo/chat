@@ -14,23 +14,23 @@
 
 	let participant = ''
 
-
-	let ms = 3000
-	const incr = () => {
-		$activeConversation.attributes.invitations.forEach(invitation => {
-			if (![...$activeConversation.participants].includes(invitation)) {
-				try {
-					$activeConversation.add(invitation)
-				} catch (e) {
-					// console.log(e)
+	const pendingInvitations = () => {
+		if ($activeConversation.attributes.invitations) {
+			$activeConversation.attributes.invitations.forEach(invitation => {
+				if (![...$activeConversation.participants].includes(invitation)) {
+					try {
+						$activeConversation.add(invitation)
+					} catch (e) {
+						// console.log(e)
+					}
 				}
-			}
-		})
+			})
+		}
 	}
-	let clear
+	let intervalInvitations
 	$: {
-		clearInterval(clear)
-		clear = setInterval(incr, ms)
+		clearInterval(intervalInvitations)
+		intervalInvitations = setInterval(pendingInvitations, 4000)
 	}
 
 	async function handleAddParticipant(e) {

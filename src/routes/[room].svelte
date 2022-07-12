@@ -93,6 +93,8 @@
 		gameover = true
 
 		await leaveConversation({ room: $activeConversation.uniqueName });
+		
+		goto('/game-over');
 	}
 </script>
 
