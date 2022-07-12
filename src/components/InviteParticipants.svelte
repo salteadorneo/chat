@@ -79,10 +79,10 @@
 	<h3>Jugadores</h3>
 
 	{#each [...$activeConversation.participants] as participant, i}
-		<div class="participant"><span><img src={ICONS[i]} alt="" /></span> {participant[1].identity} {#if createdBy != participant[1].identity}<div class="actions"><button on:click={() => handleShareLink(participant[1].identity)}>S</button><button on:click={() => handleRemoveParticipant(participant[0])}>E</button></div>{/if}</div>
+		<div class="participant"><span><img src={ICONS[Math.floor(Math.random() * ICONS.length)]} alt="" /></span> {participant[1].identity} {#if createdBy != participant[1].identity}<div class="actions"><button on:click={() => handleShareLink(participant[1].identity)}>S</button><button on:click={() => handleRemoveParticipant(participant[0])}>E</button></div>{/if}</div>
 	{/each}
 	{#each $activeConversation.attributes.invitations||[] as participant, i}
-		<div class="participant"><span><img src={ICONS[i]} alt="" /></span> {participant} (inv)<div class="actions"><button on:click={() => handleShareLink(participant)}>S</button><button on:click={() => handleRemoveInvitate(participant)}>E</button></div></div>
+		<div class="participant noregister"><span><img src={ICONS[Math.floor(Math.random() * ICONS.length)]} alt="" /></span> {participant}<div class="actions"><button on:click={() => handleShareLink(participant)}>S</button><button on:click={() => handleRemoveInvitate(participant)}>E</button></div></div>
 	{/each}
 
 	<form on:submit={handleAddParticipant}>
@@ -119,6 +119,11 @@
 		height: 22px;
 		background: var(--primary);
 		color: #f7f7f7;
+		margin: 0 0 0 5px;
+	}
+
+	.noregister span {
+		opacity: .5;
 	}
 
 	form {
