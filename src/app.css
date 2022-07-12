@@ -3,6 +3,8 @@
 :root {
     --primary: #1dbfb3;
     --background: #1d1d1b;
+
+    min-height: 100vh;
 }
 
 * {

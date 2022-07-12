@@ -91,7 +91,7 @@
 		{/if}
 	{:else}
 		<section class="fullheight">
-			<Participants />
+			<Participants size="small" />
 			
 			<h1>El juego de Alice</h1>
 
@@ -112,5 +112,6 @@
 		display: flex;
 		flex-direction: column;
 		height: 100vh;
+		padding: 20px 0 0;
 	}
 </style>

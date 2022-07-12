@@ -22,8 +22,8 @@
 </script>
 
 <svelte:head>
-	<title>Alice</title>
-	<meta name="description" content="El chat secreto!" />
+	<title>El juego de Alice</title>
+	<meta name="description" content="El juego de Alice" />
 </svelte:head>
 
 <main>
