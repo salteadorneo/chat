@@ -18,6 +18,7 @@
 	import InviteParticipants from '../components/InviteParticipants.svelte';
 	import Game from '../components/Game.svelte';
 	import Question from '../components/Question.svelte';
+	import Stats from '../components/Stats.svelte';
 
 	onMount(async () => {
 		const localUser = localStorage.user ? JSON.parse(localStorage.user) : {};
@@ -35,6 +36,16 @@
 			});
 
 			$activeConversation.on('participantJoined', (participant: Participant) => {
+				const invitations = $activeConversation.attributes.invitations || []
+				if (invitations.includes(participant.identity)) {
+					updateAttrConversation({
+						room: $activeConversation.uniqueName,
+						params: {
+							...$activeConversation.attributes,
+							invitations: invitations.filter(i => i != participant.identity)
+						}
+					});
+				}
 				activeConversation.set(participant.conversation)
 			});
 
@@ -91,6 +102,7 @@
 		{#if $activeConversation.createdBy == $user?.name}
 
 			<h1>Hola {$user?.name}</h1>
+			<Stats />
 			<InviteParticipants />
 			<Game />
 			
@@ -106,7 +118,6 @@
 			<Question />
 			
 			<Conversation />
-
 			<ConversationInput />
 
 			<button on:click={handleRemoveMe}>remove me</button>

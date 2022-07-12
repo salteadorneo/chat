@@ -3,7 +3,13 @@
 	import { updateAttrConversation } from "../services/chat";
 
 	function handleStart() {
-		updateAttrConversation({ room: $activeConversation.uniqueName, params: { ...$activeConversation.attributes, loading: !$activeConversation.attributes.loading } });
+		updateAttrConversation({ 
+			room: $activeConversation.uniqueName, 
+			params: { 
+				...$activeConversation.attributes, 
+				loading: !$activeConversation.attributes.loading 
+			}
+		});
 	}
 </script>
 

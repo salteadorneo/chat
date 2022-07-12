@@ -21,6 +21,9 @@
 
 	async function handleAnonymousLogin(e: SubmitEvent) {
 		e.preventDefault();
+
+		anonymousName = anonymousName.toLowerCase().trim()
+
 		const accessToken = await getAccessToken({ token: `anonymous_${anonymousName}` });
 		user.set({
 			name: anonymousName,
@@ -36,7 +39,7 @@
 	}
 </script>
 
-<header>
+<section>
 	<form on:submit={handleAnonymousLogin}>
 		<input
 			bind:value={anonymousName}
@@ -44,4 +47,10 @@
 			placeholder="Apodo"
 		/>
 	</form>
-</header>
+</section>
+
+<style>
+	form {
+		display: grid;
+	}
+</style>

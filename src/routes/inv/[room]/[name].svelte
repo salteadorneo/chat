@@ -42,5 +42,3 @@
 		}, 2000);
 	}
 </script>
-
-<h1>Pasa al anfitrión tu nick: {$user?.name}</h1>

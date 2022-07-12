@@ -10,20 +10,42 @@
 
 	const ICONS = [Hearts, Spades, Clubs, Diamonds];
 
+	const createdBy = $activeConversation.createdBy
+
 	let participant = ''
+
+
+	let ms = 3000
+	const incr = () => {
+		$activeConversation.attributes.invitations.forEach(invitation => {
+			if (![...$activeConversation.participants].includes(invitation)) {
+				try {
+					$activeConversation.add(invitation)
+				} catch (e) {
+					// console.log(e)
+				}
+			}
+		})
+	}
+	let clear
+	$: {
+		clearInterval(clear)
+		clear = setInterval(incr, ms)
+	}
 
 	async function handleAddParticipant(e) {
 		e.preventDefault();
-		participant = participant.trim()
+		participant = participant.toLowerCase().trim()
 		if (!participant || participant == '') return
 		try {
 			await $activeConversation.add(participant)
 		} catch (e) {
+			const invitations = $activeConversation.attributes.invitations || []
 			let conversation = await updateAttrConversation({ 
 				room: $activeConversation.uniqueName, 
 				params: {
-					loading: true,
-					invitations: ($activeConversation.attributes.invitations||[]).concat([participant])
+					...$activeConversation.attributes,
+					invitations: invitations.concat([participant])
 				}
 			});
 			if (conversation) activeConversation.set(conversation);
@@ -33,6 +55,18 @@
 
 	async function handleRemoveParticipant(participant) {
 		await removeParticipantConversation({ room: $activeConversation.uniqueName, participant: participant });
+	}
+
+	async function handleRemoveInvitate(participant) {
+		const invitations = $activeConversation.attributes.invitations || []
+		let conversation = await updateAttrConversation({ 
+			room: $activeConversation.uniqueName, 
+			params: {
+				...$activeConversation.attributes,
+				invitations: invitations.filter(p => p != participant)
+			}
+		});
+		if (conversation) activeConversation.set(conversation);
 	}
 
 	function handleShareLink(participant) {
@@ -45,15 +79,15 @@
 	<h3>Jugadores</h3>
 
 	{#each [...$activeConversation.participants] as participant, i}
-		<div class="participant"><span><img src={ICONS[i]} alt="" /></span> {participant[1].identity} <div class="actions"><button on:click={() => handleShareLink(participant[1].identity)}>S</button><button on:click={() => handleRemoveParticipant(participant[0])}>E</button></div></div>
+		<div class="participant"><span><img src={ICONS[i]} alt="" /></span> {participant[1].identity} {#if createdBy != participant[1].identity}<div class="actions"><button on:click={() => handleShareLink(participant[1].identity)}>S</button><button on:click={() => handleRemoveParticipant(participant[0])}>E</button></div>{/if}</div>
 	{/each}
 	{#each $activeConversation.attributes.invitations||[] as participant, i}
-		<div class="participant"><span><img src={ICONS[i]} alt="" /></span> {participant} <div class="actions"><button on:click={() => handleShareLink(participant)}>S</button></div></div>
+		<div class="participant"><span><img src={ICONS[i]} alt="" /></span> {participant} (inv)<div class="actions"><button on:click={() => handleShareLink(participant)}>S</button><button on:click={() => handleRemoveInvitate(participant)}>E</button></div></div>
 	{/each}
 
 	<form on:submit={handleAddParticipant}>
-		<input type="text" placeholder="Añadir jugador" bind:value={participant} autofocus />
 		<button>+</button>
+		<input type="text" placeholder="Añadir jugador" bind:value={participant} autofocus />
 	</form>
 </div>
 
@@ -61,14 +95,14 @@
 	.participant {
 		display: flex;
 		align-items: center;
-		margin: 0 0 15px;
+		margin: 0 0 10px;
 	}
 	.participant span {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 24px;
-		height: 24px;
+		width: 28px;
+		height: 28px;
 		border-radius: 50%;
 		border: 1px solid var(--primary);
 		margin: 0 10px 0 0;
@@ -90,7 +124,7 @@
 	form {
 		display: flex;
 		align-items: center;
-		justify-content: space-evenly;
+		/* justify-content: space-evenly; */
 		width: 100%;
 	}
 	input[type=text] {
@@ -98,16 +132,15 @@
 		background: transparent;
 		appearance: none;
 		border: none;
-		border-bottom: 1px solid var(--primary);
 		outline: none;
-		color: var(--primary);
+		color: #f7f7f7;
 		padding: 8px 10px;
 	}
 	form button {
 		border-radius: 50%;
 		padding: 2px 0 0;
-		width: 30px;
-		line-height: 26px;
+		width: 28px;
+		line-height: 24px;
 		font-size: 20px;
 	}
 </style>
