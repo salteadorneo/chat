@@ -10,7 +10,7 @@
 
 	let anonymousName = '';
 
-	const refRoom = $page.params.room ?? $page.url.searchParams.get('ref')
+	const refRoom = $page.params.room ?? ''
 
 	onMount(async () => {
 		if (user) {
