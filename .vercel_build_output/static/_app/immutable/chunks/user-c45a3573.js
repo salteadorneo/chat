@@ -1,0 +1,1 @@
+const c=async({token:s})=>{const e=await fetch("/api/get-access-token",{headers:{jwt:s}});if(!e.ok)throw new Error("Error getting access token");const{accessToken:t}=await e.json();return t};export{c as g};

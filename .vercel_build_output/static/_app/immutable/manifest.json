@@ -1,0 +1,178 @@
+{
+  ".svelte-kit/runtime/client/start.js": {
+    "file": "start-44c88528.js",
+    "src": ".svelte-kit/runtime/client/start.js",
+    "isEntry": true,
+    "imports": [
+      "_index-8d614d0f.js",
+      "_singletons-4a6438bd.js"
+    ],
+    "dynamicImports": [
+      "src/routes/__layout.svelte",
+      ".svelte-kit/runtime/components/error.svelte",
+      "src/routes/[room].svelte",
+      "src/routes/game-over.svelte",
+      "src/routes/index.svelte",
+      "src/routes/inv/[room]/[name].svelte",
+      "src/routes/nuevo-juego.svelte",
+      "src/routes/win.svelte"
+    ]
+  },
+  "src/routes/__layout.svelte": {
+    "file": "pages/__layout.svelte-287e0931.js",
+    "src": "src/routes/__layout.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-8d614d0f.js",
+      "_browser-3fd718e3.js",
+      "_navigation-27e09178.js",
+      "_singletons-4a6438bd.js"
+    ],
+    "css": [
+      "assets/pages/__layout.svelte-2c83a7c1.css"
+    ],
+    "assets": [
+      "assets/background-524f5f95.svg"
+    ]
+  },
+  ".svelte-kit/runtime/components/error.svelte": {
+    "file": "error.svelte-10b46eed.js",
+    "src": ".svelte-kit/runtime/components/error.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-8d614d0f.js"
+    ]
+  },
+  "src/routes/[room].svelte": {
+    "file": "pages/_room_.svelte-1aecc27d.js",
+    "src": "src/routes/[room].svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-8d614d0f.js",
+      "_stores-b12f77dd.js",
+      "_chat-865b4333.js",
+      "_navigation-27e09178.js",
+      "_browser-3fd718e3.js",
+      "_singletons-4a6438bd.js"
+    ],
+    "css": [
+      "assets/pages/_room_.svelte-92e88540.css"
+    ],
+    "assets": [
+      "assets/Hearts-eafdf310.svg",
+      "assets/Clubs-aa687fbf.svg",
+      "assets/Spades-f129333e.svg",
+      "assets/Diamonds-131322d2.svg"
+    ]
+  },
+  "src/routes/game-over.svelte": {
+    "file": "pages/game-over.svelte-ce6f374b.js",
+    "src": "src/routes/game-over.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-8d614d0f.js"
+    ],
+    "css": [
+      "assets/pages/win.svelte-c7de2188.css"
+    ],
+    "assets": [
+      "assets/GameOver-2bde6999.svg"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "pages/index.svelte-c24cf854.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-8d614d0f.js",
+      "_navigation-27e09178.js",
+      "_stores-b12f77dd.js",
+      "_user-c45a3573.js",
+      "_singletons-4a6438bd.js"
+    ],
+    "css": [
+      "assets/pages/index.svelte-d8920ef2.css"
+    ]
+  },
+  "src/routes/inv/[room]/[name].svelte": {
+    "file": "pages/inv/_room_/_name_.svelte-11fe9eed.js",
+    "src": "src/routes/inv/[room]/[name].svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-8d614d0f.js",
+      "_stores-b12f77dd.js",
+      "_chat-865b4333.js",
+      "_navigation-27e09178.js",
+      "_user-c45a3573.js",
+      "_browser-3fd718e3.js",
+      "_singletons-4a6438bd.js"
+    ]
+  },
+  "src/routes/nuevo-juego.svelte": {
+    "file": "pages/nuevo-juego.svelte-90262944.js",
+    "src": "src/routes/nuevo-juego.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-8d614d0f.js",
+      "_navigation-27e09178.js",
+      "_chat-865b4333.js",
+      "_singletons-4a6438bd.js",
+      "_browser-3fd718e3.js"
+    ]
+  },
+  "src/routes/win.svelte": {
+    "file": "pages/win.svelte-f6871f98.js",
+    "src": "src/routes/win.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-8d614d0f.js"
+    ],
+    "css": [
+      "assets/pages/win.svelte-c7de2188.css"
+    ],
+    "assets": [
+      "assets/Win-fa4560f0.svg"
+    ]
+  },
+  "_index-8d614d0f.js": {
+    "file": "chunks/index-8d614d0f.js"
+  },
+  "_singletons-4a6438bd.js": {
+    "file": "chunks/singletons-4a6438bd.js",
+    "imports": [
+      "_index-8d614d0f.js"
+    ]
+  },
+  "_browser-3fd718e3.js": {
+    "file": "chunks/browser-3fd718e3.js"
+  },
+  "_navigation-27e09178.js": {
+    "file": "chunks/navigation-27e09178.js",
+    "imports": [
+      "_singletons-4a6438bd.js"
+    ]
+  },
+  "_stores-b12f77dd.js": {
+    "file": "chunks/stores-b12f77dd.js",
+    "imports": [
+      "_index-8d614d0f.js"
+    ]
+  },
+  "_chat-865b4333.js": {
+    "file": "chunks/chat-865b4333.js",
+    "imports": [
+      "_browser-3fd718e3.js"
+    ]
+  },
+  "_user-c45a3573.js": {
+    "file": "chunks/user-c45a3573.js"
+  }
+}
