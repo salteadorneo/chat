@@ -1,5 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Gantari&display=swap');
 
+:root {
+    --primary: #1dbfb3;
+    --background: #1d1d1b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Gantari';
+    background: url(./assets/background.svg) no-repeat center / cover var(--background);
+    color: #f7f7f7;
+    margin: 0;
+}
+
+main {
+    width: 90%;
+    margin: 0 auto;
+}
+
+a {
+    color: var(--primary);
+}
+
+button {
+    border: 1px solid var(--primary);
+    background: var(--background);
+    appearance: none;
+    border-radius: 12px;
+    color: var(--primary);
+    font-size: 10px;
+    text-transform: uppercase;
+    padding: 7px 28px;
+}
+
+h3 {
+    font-size: 12px;
+    margin: 0 0 20px;
 }

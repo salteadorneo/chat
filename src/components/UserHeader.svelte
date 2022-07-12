@@ -36,10 +36,9 @@
 	}
 </script>
 
-<header class="flex justify-center items-center gap-x-4">
+<header>
 	<form on:submit={handleAnonymousLogin}>
 		<input
-			class="border-2 p-2"
 			bind:value={anonymousName}
 			type="text"
 			placeholder="Apodo"

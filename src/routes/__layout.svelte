@@ -26,6 +26,6 @@
 	<meta name="description" content="El chat secreto!" />
 </svelte:head>
 
-<main class="max-w-6xl m-auto px-4 relative">
+<main>
 	<slot />
 </main>

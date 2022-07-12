@@ -13,6 +13,10 @@
 	import type { Participant } from '@twilio/conversations';
 
 	import { goto } from '$app/navigation';
+		
+	import Loading from '../components/Loading.svelte';
+	import InviteParticipants from '../components/InviteParticipants.svelte';
+	import Game from '../components/Game.svelte';
 
 	onMount(async () => {
 		const localUser = localStorage.user ? JSON.parse(localStorage.user) : {};
@@ -54,16 +58,6 @@
 		activeConversation.set(conversation);
 		return conversation;
 	}
-	
-	async function handleStart(e) {
-		e.preventDefault();
-
-		if (!$user || $user?.token == null) return;
-
-		let conversation = await updateAttrConversation({ room: $activeConversation.uniqueName, params: { loading: !$activeConversation.attributes.loading } });
-		
-		if (conversation) activeConversation.set(conversation);
-	}
 
 	async function handleDelete(e) {
 		e.preventDefault();
@@ -83,21 +77,20 @@
 </script>
 
 {#if $activeConversation?.uniqueName}
+
 	{#if $activeConversation.attributes.loading}
 		{#if $activeConversation.createdBy == $user?.name}
-			<Participants add />
-			<br />
-			http://localhost:3000/inv/{$activeConversation.uniqueName}
-			<br />
-			<button on:click={handleStart}>Empezar</button>
+
+			<h1>Hola {$user?.name}</h1>
+			<InviteParticipants />
+			<Game />
+			
 		{:else}
-			Loading...
+			<Loading />
 		{/if}
 	{:else}
-		<div class="max-w-6xl mx-auto py-2 relative">
-			<h2 class="text-3xl">
-				{$activeConversation.uniqueName}
-			</h2>
+		<div>
+			<h2>El juego de Alice</h2>
 			<Participants />
 			<Conversation />
 			<ConversationInput />
