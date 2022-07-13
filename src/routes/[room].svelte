@@ -21,7 +21,7 @@
 	import Stats from '../components/Stats.svelte';
 
 	onMount(async () => {
-		const localUser = localStorage.user ? JSON.parse(localStorage.user) : {};
+		const localUser = sessionStorage.user ? JSON.parse(sessionStorage.user) : {};
 		user.set(localUser);
 		
 		// if (!$user || $user?.token == null) goto('/?ref=' + $page.params.room);
@@ -58,7 +58,7 @@
 			// if ($activeConversation.createdBy == $user?.name)
 			// 	await updateAttrConversation({ room: $page.params.room, accessToken: $user.token, params: { loading: true } });
 		} else {
-			goto('/nuevo-juego');
+			goto('/');
 		}
 	});
 
@@ -68,7 +68,7 @@
 		if (!conversation) {
 			if (gameover) goto('/game-over');
 			else if (win) goto('/win');
-			else goto('/nuevo-juego');
+			else goto('/');
 		}
 
 		activeConversation.set(conversation);
@@ -109,7 +109,7 @@
 			<Game />
 			
 		{:else}
-			<Loading />
+			<Loading waiting />
 		{/if}
 	{:else}
 		<section class="fullheight">

@@ -3,7 +3,7 @@
 
 	import { page } from '$app/stores';
 
-	import { getConversation, initialize, joinConversation } from '../../../services/chat';
+	import { getConversation, initialize } from '../../../services/chat';
 	import { user } from '../../../store';
 	import { goto } from '$app/navigation';
 	import { getAccessToken } from '../../../services/user';
@@ -14,12 +14,9 @@
 		const accessToken = await getAccessToken({ token: `anonymous_${anonymousName}` });
 		user.set({
 			name: anonymousName,
-			avatar: `https://i.pravatar.cc/150?u=${anonymousName}`,
-			email: 'a@a.com',
 			token: accessToken,
-			userName: anonymousName
 		});
-		localStorage.user = JSON.stringify($user);
+		sessionStorage.user = JSON.stringify($user);
 
 		if ($user) initialize({ accessToken: $user.token});
 
@@ -30,8 +27,6 @@
 		} catch (e) {
 			// console.log(e)
 		}
-		// else goto('/nuevo-juego');
-
 	});
 
 	async function getConversationTimeout() {

@@ -5,8 +5,10 @@ export let client : Client
 export const initialize = (
   { accessToken } : { accessToken: string }
   ) => {
+    if (!accessToken) return
     if (!client) {
       client = new Client(accessToken);
+      console.log(client)
     }
   }
 

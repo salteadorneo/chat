@@ -5,7 +5,7 @@
 
 	const { body, author } = message;
 
-	let userOrigin = message.author === $user?.userName ? 'right' : 'left';
+	let userOrigin = message.author === $user?.name ? 'right' : 'left';
 </script>
 
 <div class={`${userOrigin}`}>

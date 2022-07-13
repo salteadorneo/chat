@@ -5,6 +5,8 @@
 	import Clubs from '../assets/Clubs.svg';
 	import Spades from '../assets/Spades.svg';
 	import Diamonds from '../assets/Diamonds.svg';
+
+	export let waiting
 </script>
 
 <div class="loading">
@@ -14,10 +16,12 @@
 		<img src={Spades} alt="" />
 		<img src={Diamonds} alt="" />
 	</div>
-	<footer>
-		<p>Esperando a los jugadores</p>
-		<Participants />
-	</footer>
+	{#if waiting}
+		<footer>
+			<p>Esperando a los jugadores</p>
+			<Participants />
+		</footer>
+	{/if}
 </div>
 
 <style>
@@ -28,7 +32,7 @@
 		justify-content: center;
 		height: 100vh;
 		opacity: 0;
-		animation: fadeIn 1s ease-in-out forwards;
+		animation: fadeIn .5s ease-in-out forwards;
 	}
 
 	.spinner {
