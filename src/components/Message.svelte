@@ -14,19 +14,14 @@
 </div>
 
 <style>
-	p {
-		margin: 0;
-		font-size: 12px;
-	}
-	small {
-		font-size: 8px;
-	}
 	div {
 		position: relative;
 		border: 1px solid var(--primary);
 		border-radius: 12px;
 		margin-bottom: 22px;
 		padding: 0 20px 10px;
+		opacity: 0;
+		animation: fadeIn .3s ease-in-out forwards;
 	}
 	div::before {
 		content: ' ';
@@ -69,5 +64,12 @@
 		bottom: -17px;
 		border: 10px solid;
 		border-color: var(--background) transparent transparent var(--background);
+	}
+	p {
+		margin: 0;
+		font-size: 12px;
+	}
+	small {
+		font-size: 8px;
 	}
 </style>

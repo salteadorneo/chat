@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { activeConversation } from '../store';
 
+	import Send from '../assets/Send.svg'
+
 	let message = '';
 
 	function handleMessage(e) {
@@ -25,7 +27,7 @@
 			bind:value={message}
 			placeholder="Escribe un mensaje aquí"
 		/>
-		<button>Enviar</button>
+		<span on:click={handleMessage}><img src={Send} alt="Send" /></span>
 	</form>
 </footer>
 
@@ -43,6 +45,7 @@
 
 	form {
 		display: flex;
+		align-items: center;
 	}
 
 	input[type=text] {
@@ -54,5 +57,10 @@
 		appearance: none;
 		outline: none;
 		color: var(--primary);
+		margin: 0 10px 0 0;
+	}
+	
+	img {
+		height: 20px;
 	}
 </style>

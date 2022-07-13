@@ -10,6 +10,9 @@
 
 	const ICONS = [Hearts, Spades, Clubs, Diamonds];
 
+	import Clipboard from '../assets/Clipboard.svg';
+	import Share from '../assets/Share.svg';
+
 	const createdBy = $activeConversation.createdBy
 
 	let participant = ''
@@ -69,9 +72,15 @@
 		if (conversation) activeConversation.set(conversation);
 	}
 
-	function handleShareLink(participant) {
+	function handleCopyLink(participant) {
 		const url = `${window.location.origin}/inv/${$activeConversation.uniqueName}/${participant}`;
 		navigator.clipboard.writeText(url);
+		alert('Copiado')
+	}
+
+	function handleShareLink(participant) {
+		const url = `${window.location.origin}/inv/${$activeConversation.uniqueName}/${participant}`;
+		window.open(`https://api.whatsapp.com/send?text=${url}`)
 	}
 </script>
 
@@ -79,10 +88,37 @@
 	<h3>Jugadores</h3>
 
 	{#each [...$activeConversation.participants] as participant, i}
-		<div class="participant"><span><img src={ICONS[Math.floor(Math.random() * ICONS.length)]} alt="" /></span> {participant[1].identity} {#if createdBy != participant[1].identity}<div class="actions"><button on:click={() => handleShareLink(participant[1].identity)}>S</button><button on:click={() => handleRemoveParticipant(participant[0])}>E</button></div>{/if}</div>
+		<div class="participant">
+			<span><img src={ICONS[Math.floor(Math.random() * ICONS.length)]} alt="" /></span>
+			{participant[1].identity}
+			{#if createdBy != participant[1].identity}
+				<div class="actions">
+					<button on:click={() => handleCopyLink(participant[1].identity)}>
+						<img src={Clipboard} alt="Copy" /> Copiar
+					</button>
+					<button on:click={() => handleShareLink(participant[1].identity)}>
+						<img src={Share} alt="Share" /> Compartir
+					</button>
+					<!-- <button on:click={() => handleRemoveParticipant(participant[0])}>
+						<img src={} alt="Remove" />
+					</button> -->
+				</div>
+			{/if}
+		</div>
 	{/each}
 	{#each $activeConversation.attributes.invitations||[] as participant, i}
-		<div class="participant noregister"><span><img src={ICONS[Math.floor(Math.random() * ICONS.length)]} alt="" /></span> {participant}<div class="actions"><button on:click={() => handleShareLink(participant)}>S</button><button on:click={() => handleRemoveInvitate(participant)}>E</button></div></div>
+		<div class="participant noregister">
+			<span><img src={ICONS[Math.floor(Math.random() * ICONS.length)]} alt="" /></span>
+			{participant}
+			<div class="actions">
+				<button on:click={() => handleCopyLink(participant)}>
+					<img src={Clipboard} alt="Copy" /> Copiar
+				</button>
+				<button on:click={() => handleShareLink(participant)}>
+					<img src={Share} alt="Share" /> Compartir
+				</button>
+			</div>
+		</div>
 	{/each}
 
 	<form on:submit={handleAddParticipant}>
@@ -113,13 +149,20 @@
 	.participant .actions {
 		margin-left: auto;
 	}
-	.participant button {
-		padding: 0;
-		width: 22px;
+	.participant .actions button {
+		/* display: inline-flex;
+		justify-content: center;
+		align-items: center; */
+		padding: 0 10px;
+		/* width: 22px; */
 		height: 22px;
 		background: var(--primary);
 		color: #f7f7f7;
 		margin: 0 0 0 5px;
+	}
+	.participant .actions button img {
+		height: 14px;
+		vertical-align: middle;
 	}
 
 	.noregister span {
@@ -129,7 +172,6 @@
 	form {
 		display: flex;
 		align-items: center;
-		/* justify-content: space-evenly; */
 		width: 100%;
 	}
 	input[type=text] {
