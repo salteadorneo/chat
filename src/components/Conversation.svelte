@@ -10,10 +10,19 @@
 		const paginator = await $activeConversation.getMessages();
 		messages = paginator.items;
 
+		messages = messages.map(message => checkMessage(message))
+
 		$activeConversation.on('messageAdded', (message: { body: string; author: string }) => {
-			messages = [...messages, message];
+			messages = [...messages, checkMessage(message)];
 		});
 	});
+
+	function checkMessage(message: { body: string; author: string }) {
+		if (message.body.startsWith('!respuesta')) {
+			return { body: '!respuesta ****', author: message.author }
+		}
+		return message
+	}
 
 	afterUpdate(() => {
 		div.scrollTo(0, div.scrollHeight);

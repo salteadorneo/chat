@@ -21,6 +21,9 @@
 		if ($user) initialize({ accessToken: $user.token});
 
 		await getOrCreateRoom()
+
+		sessionStorage.clear()
+		goto(`/`);
 	});
 
 	async function getOrCreateRoom() {

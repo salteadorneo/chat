@@ -17,7 +17,7 @@
 	import Loading from '../components/Loading.svelte';
 	import InviteParticipants from '../components/InviteParticipants.svelte';
 	import Game from '../components/Game.svelte';
-	import Question from '../components/Question.svelte';
+	import Questions from '../components/Questions.svelte';
 	import Stats from '../components/Stats.svelte';
 
 	onMount(async () => {
@@ -117,7 +117,7 @@
 			
 			<h1>El juego de Alice</h1>
 
-			<Question />
+			<Questions />
 			
 			<Conversation />
 			<ConversationInput />

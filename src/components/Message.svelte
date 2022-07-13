@@ -68,6 +68,7 @@
 	p {
 		margin: 0;
 		font-size: 12px;
+		font-weight: 700;
 	}
 	small {
 		font-size: 8px;
