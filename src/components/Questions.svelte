@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { activeConversation } from "../store"
 
-	const question = $activeConversation.attributes.questions[0]
+	const question = $activeConversation?.attributes.questions ? $activeConversation?.attributes.questions[0] : {q: ''}
 </script>
 
 <section>
