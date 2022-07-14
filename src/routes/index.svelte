@@ -6,9 +6,11 @@
 	import { onMount } from 'svelte';
 
 	import { createConversation, getConversations, initialize } from '../services/chat';
-	import { getAccessToken } from '../services/user';
+	import { getAccessToken } from '../services/user'
 
-	import Loading from '../components/Loading.svelte';
+	import Loading from '../components/Loading.svelte'
+
+	import questions from '../data/questions.json'
 
 	let anonymousName = '';
 
@@ -27,16 +29,12 @@
 	});
 
 	async function getOrCreateRoom() {
-		console.log('getOrCreateRoom')
 		const paginator = await getConversations({});
-		console.log(paginator)
 		if (paginator && paginator.items[0]) {
-
 			goto('/' + paginator.items[0].channelState.uniqueName);
 		} else {
 			const newRoom = Math.random().toString(36).substring(2)
-			const conversation = await createConversation({ room: newRoom });
-			console.log(conversation)
+			const conversation = await createConversation({ room: newRoom, attributes: { loading: true, questions: [questions[Math.floor(Math.random() * questions.length)]] } });
 			if (conversation) {
 				activeConversation.set(conversation);
 				goto(`/${newRoom}`);

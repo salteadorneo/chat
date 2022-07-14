@@ -3,6 +3,8 @@
 
 	import Send from '../assets/Send.svg'
 
+	export let disabled = false
+
 	let message = '';
 
 	function handleMessage(e) {
@@ -20,12 +22,13 @@
 
 <svelte:window on:keydown={handleKeyDown} />
 
-<footer>
+<footer class={disabled ? 'disabled' : ''}>
 	<form on:submit={handleMessage}>
 		<input
 			type="text"
 			bind:value={message}
 			placeholder="Escribe un mensaje aquí"
+			disabled={disabled}
 		/>
 		<span on:click={handleMessage}><img src={Send} alt="Send" /></span>
 	</form>
@@ -38,9 +41,13 @@
 		width: 99vw;
 		
 		background: var(--background);
-		padding: 10px;
+		padding: 8px 10px;
 		text-align: center;
 		border-top: 1px solid var(--primary);
+	}
+
+	.disabled {
+		opacity: .5;
 	}
 
 	form {
@@ -52,7 +59,7 @@
 		width: 100%;
 		border: 1px solid var(--primary);
 		border-radius: 12px;
-		padding: 6px 20px;
+		padding: 8px 20px;
 		background: var(--background);
 		appearance: none;
 		outline: none;

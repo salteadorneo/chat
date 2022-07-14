@@ -1,11 +1,15 @@
 <script lang="ts">
+	import type { JSONValue } from '@twilio/conversations';
+
 	import { user } from '../store';
 
-	export let message: { body: string; author: string };
+	export let message: { body: string; author: string; attributes: JSONValue };
 
-	const { body, author } = message;
+	const { body, author, attributes } = message;
 
 	let userOrigin = message.author === $user?.name ? 'right' : 'left';
+
+	if (attributes?.label) userOrigin = 'label'
 </script>
 
 <div class={`${userOrigin}`}>
@@ -23,7 +27,7 @@
 		opacity: 0;
 		animation: fadeIn .3s ease-in-out forwards;
 	}
-	div::before {
+	.left::before, .right::before {
 		content: ' ';
 		position: absolute;
 		width: 0;
@@ -64,6 +68,12 @@
 		bottom: -17px;
 		border: 10px solid;
 		border-color: var(--background) transparent transparent var(--background);
+	}
+	.label {
+		text-align: center;
+		background: transparent;
+		border: none;
+		padding: 0;
 	}
 	p {
 		margin: 0;

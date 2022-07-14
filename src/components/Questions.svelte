@@ -1,9 +1,11 @@
 <script lang="ts">
-	import questions from '../data/questions.json'
+	import { activeConversation } from "../store"
+
+	const question = $activeConversation.attributes.questions[0]
 </script>
 
 <section>
-	<p>{questions[Math.floor(Math.random() * questions.length)].q}</p>
+	<p>{question.q}</p>
 </section>
 
 <style>

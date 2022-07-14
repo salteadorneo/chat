@@ -1,4 +1,4 @@
-import { Client } from '@twilio/conversations'
+import { Client, type JSONValue } from '@twilio/conversations'
 
 export let client : Client
 
@@ -8,15 +8,14 @@ export const initialize = (
     if (!accessToken) return
     if (!client) {
       client = new Client(accessToken);
-      console.log(client)
     }
   }
 
 export const createConversation = async (
-  { room } : { room: string }
+  { room, attributes } : { room: string, attributes: JSONValue }
   ) => {
     try {
-      const conversation = await client.createConversation({ uniqueName: room, attributes: { loading: true } })
+      const conversation = await client.createConversation({ uniqueName: room, attributes })
       conversation?.join()
       return conversation
     } catch (e) {

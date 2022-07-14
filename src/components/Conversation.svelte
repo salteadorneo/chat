@@ -1,10 +1,13 @@
 <script lang="ts">
+	import type { JSONValue } from '@twilio/conversations';
+	import { updateAttrConversation } from '../services/chat';
+
 	import { onMount, afterUpdate } from 'svelte';
 	import { activeConversation } from '../store';
 	import Message from './Message.svelte';
 
 	let div: HTMLDivElement;
-	let messages: Array<{ body: string; author: string }> = [];
+	let messages: Array<{ body: string; author: string; attributes: JSONValue }> = [];
 
 	onMount(async () => {
 		const paginator = await $activeConversation.getMessages();
@@ -12,15 +15,29 @@
 
 		messages = messages.map(message => checkMessage(message))
 
-		$activeConversation.on('messageAdded', (message: { body: string; author: string }) => {
+		$activeConversation.on('messageAdded', (message: { body: string; author: string; attributes: JSONValue }) => {
 			messages = [...messages, checkMessage(message)];
 		});
 	});
 
-	function checkMessage(message: { body: string; author: string }) {
-		if (message.body.startsWith('!respuesta')) {
-			return { body: '!respuesta ****', author: message.author }
+	function checkMessage(message: { body: string; author: string; attributes: JSONValue }) {
+		const correct = $activeConversation.attributes.questions[0].a
+
+		if (message.body.toLowerCase() == correct.toLowerCase()) {
+
+			// add participant to winners
+			const winners = new Set($activeConversation.attributes.winners || [])
+			updateAttrConversation({ 
+				room: $activeConversation.uniqueName, 
+				params: {
+					...$activeConversation.attributes,
+					winners: Array.from(winners.add(message.author))
+				}
+			});
+
+			return { body: 'ACIERTO', author: message.author, attributes: { label: true } }
 		}
+
 		return message
 	}
 
