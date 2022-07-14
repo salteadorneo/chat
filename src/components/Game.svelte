@@ -21,7 +21,7 @@
 			idea of denouncing pleasure and praising pain
 			of the system, and expound the ateachings of
 			the great explor</p>
-		<button on:click={handleStart}>Empezar</button>
+		<button on:click={handleStart} disabled={$activeConversation.participants.size <= 1}>Empezar</button>
 	</section>
 </div>
 
@@ -42,6 +42,10 @@
 
 	button {
 		margin: 0 auto;
+	}
+
+	button[disabled] {
+		opacity: .3;
 	}
 
 	p {
