@@ -120,7 +120,7 @@
 			<Questions />
 			
 			<Conversation />
-			<ConversationInput />
+			<ConversationInput disabled={$activeConversation.attributes.winners?.includes($user?.name)} />
 
 			<button on:click={handleRemoveMe}>remove me</button>
 			<button on:click={handleDelete}>Cerrar</button>
