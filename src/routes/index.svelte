@@ -23,23 +23,24 @@
 		if ($user) initialize({ accessToken: $user.token});
 
 		await getOrCreateRoom()
-
-		sessionStorage.clear()
-		goto(`/`);
 	});
 
 	async function getOrCreateRoom() {
 		const paginator = await getConversations({});
 		if (paginator && paginator.items[0]) {
-			goto('/' + paginator.items[0].channelState.uniqueName);
+			goto('/' + paginator.items[0].channelState.uniqueName)
+			return
 		} else {
 			const newRoom = Math.random().toString(36).substring(2)
 			const conversation = await createConversation({ room: newRoom, attributes: { loading: true, questions: [questions[Math.floor(Math.random() * questions.length)]] } });
 			if (conversation) {
 				activeConversation.set(conversation);
-				goto(`/${newRoom}`);
+				goto(`/${newRoom}`)
+				return
 			}
 		}
+		sessionStorage.clear()
+		goto(`/`)
 	}
 
 	async function handleAnonymousLogin(e: SubmitEvent) {

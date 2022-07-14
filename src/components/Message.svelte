@@ -3,6 +3,8 @@
 
 	import { user } from '../store';
 
+	import config from '../data/config.json'
+
 	export let message: { body: string; author: string; attributes: JSONValue };
 
 	const { body, author, attributes } = message;
@@ -10,11 +12,27 @@
 	let userOrigin = message.author === $user?.name ? 'right' : 'left';
 
 	if (attributes?.label) userOrigin = 'label'
+	if (attributes?.anonymous) userOrigin = 'label anonymous'
+
+
+	let bodyTimer = '', timer = config.seconds_timer_delete_participant
+	if (body.includes('{timer}')) {
+		bodyTimer = body.replace('{timer}', timer.toString())
+		const intervalTimer = setInterval(() => {
+			if (timer > 0) timer--
+			bodyTimer = body.replace('{timer}', timer.toString())
+			if (timer <= 0) {
+				clearInterval(intervalTimer)
+				bodyTimer = bodyTimer.split(' ')[0] + ' ha sido eliminado'
+			}
+		}, 1000)
+	}
+	
 </script>
 
 <div class={`${userOrigin}`}>
-	<small>{author}</small>
-	<p>{body}</p>
+	{#if !attributes?.anonymous }<small>{author}</small>{/if}
+	<p>{bodyTimer || body}</p>
 </div>
 
 <style>
@@ -74,6 +92,10 @@
 		background: transparent;
 		border: none;
 		padding: 0;
+	}
+	.anonymous {
+		font-style: italic;
+		color: gray;
 	}
 	p {
 		margin: 0;

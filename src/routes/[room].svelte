@@ -3,7 +3,7 @@
 
 	import { onMount } from 'svelte';
 
-	import { initialize, getConversation, updateAttrConversation, deleteConversation, removeParticipantConversation, leaveConversation } from '../services/chat';
+	import { initialize, getConversation, updateAttrConversation, deleteConversation } from '../services/chat';
 	import { activeConversation, user } from '../store';
 
 	import Conversation from '../components/Conversation.svelte';
@@ -50,13 +50,19 @@
 			});
 
 			$activeConversation.on('participantLeft', (participant: Participant) => {
-				setTimeout(() => {
-					refreshConversation({ room: $page.params.room });
+				if (participant.identity == $user?.name) goto('/game-over');
+
+				setTimeout(async () => {
+					const conversation = await refreshConversation({ room: $page.params.room });
+
+					// you're alone? You are the winner :)
+					if (conversation && conversation.participants.size == 1) {
+						goto('/win')
+						deleteConversation({ room: $activeConversation.uniqueName });
+						return
+					}
 				}, 500);
 			});
-
-			// if ($activeConversation.createdBy == $user?.name)
-			// 	await updateAttrConversation({ room: $page.params.room, accessToken: $user.token, params: { loading: true } });
 		} else {
 			goto('/');
 		}
@@ -64,37 +70,14 @@
 
 	async function refreshConversation({ room }) {
 		const conversation = await getConversation({ room });
-
-		if (!conversation) {
-			if (gameover) goto('/game-over');
-			else if (win) goto('/win');
-			else goto('/');
-		}
-
 		activeConversation.set(conversation);
 		return conversation;
 	}
 
-	let win = false
 	async function handleDelete(e) {
 		e.preventDefault();
-		
-		win = true
-
 		await deleteConversation({ room: $activeConversation.uniqueName });
-
-		goto('/win');
-	}
-
-	let gameover = false
-	async function handleRemoveMe(e) {
-		e.preventDefault();
-
-		gameover = true
-
-		await leaveConversation({ room: $activeConversation.uniqueName });
-		
-		goto('/game-over');
+		goto('/');
 	}
 </script>
 
@@ -113,6 +96,8 @@
 		{/if}
 	{:else}
 		<section class="fullheight">
+			<button on:click={handleDelete}>Cerrar</button>
+
 			<Participants size="small" />
 			
 			<h1>El juego de Alice</h1>
@@ -121,9 +106,6 @@
 			
 			<Conversation />
 			<ConversationInput disabled={$activeConversation.attributes.winners?.includes($user?.name)} />
-
-			<button on:click={handleRemoveMe}>remove me</button>
-			<button on:click={handleDelete}>Cerrar</button>
 		</section>
 	{/if}
 {/if}
