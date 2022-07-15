@@ -102,6 +102,9 @@
 		color: var(--primary);
 		text-align: center;
 		font-size: 20px;
+	}
+	
+	input[type=text]:not(:placeholder-shown) {
 		text-transform: lowercase;
 	}
 </style>

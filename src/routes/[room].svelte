@@ -86,16 +86,18 @@
 	{#if $activeConversation.attributes.loading}
 		{#if $activeConversation.createdBy == $user?.name}
 
+		<section>
 			<h1>Hola {$user?.name}</h1>
 			<Stats />
 			<InviteParticipants />
 			<Game />
+		</section>
 			
 		{:else}
 			<Loading waiting />
 		{/if}
 	{:else}
-		<section class="fullheight">
+		<section>
 			<button on:click={handleDelete}>Cerrar</button>
 
 			<Participants size="small" />
@@ -111,7 +113,7 @@
 {/if}
 
 <style>
-	.fullheight {
+	section {
 		display: flex;
 		flex-direction: column;
 		height: 100vh;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { removeParticipantConversation, updateAttrConversation } from '../services/chat';
 
-	import { activeConversation } from '../store';
+	import { activeConversation, user } from '../store';
 
 	import Hearts from '../assets/Hearts.svg';
 	import Spades from '../assets/Spades.svg';
@@ -39,7 +39,7 @@
 	async function handleAddParticipant(e) {
 		e.preventDefault();
 		participant = participant.toLowerCase().trim()
-		if (!participant || participant == '') return
+		if (!participant || participant == '' || participant == $user?.name) return
 		try {
 			await $activeConversation.add(participant)
 		} catch (e) {
@@ -84,7 +84,7 @@
 	}
 </script>
 
-<div>
+<section>
 	<h3>Jugadores</h3>
 
 	{#each [...$activeConversation.participants] as participant, i}
@@ -125,9 +125,13 @@
 		<button>+</button>
 		<input type="text" placeholder="Añadir jugador" bind:value={participant} />
 	</form>
-</div>
+</section>
 
 <style>
+	section {
+		height: 100%;
+		margin: 0 0 40px;
+	}
 	.participant {
 		display: flex;
 		align-items: center;
@@ -182,6 +186,9 @@
 		outline: none;
 		color: #f7f7f7;
 		padding: 8px 10px;
+	}
+	input[type=text]:not(:placeholder-shown) {
+		text-transform: lowercase;
 	}
 	form button {
 		border-radius: 50%;

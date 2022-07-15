@@ -29,11 +29,11 @@
 	section {
 		display: flex;
 		flex-direction: column;
-		width: 90%;
+		width: 100%;
 		border-top-left-radius: 12px;
 		border-top-right-radius: 12px;
-		position: fixed;
-		bottom: 0;
+		/* position: fixed;
+		bottom: 0; */
 		border: 1px solid var(--primary);
 		border-bottom: 0;
 		padding: 25px;

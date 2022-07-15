@@ -32,6 +32,7 @@
 		height: 42px;
 		text-align: center;
 		margin: 0 0 0 -18px;
+		transition: all 1s;
 	}
 	.participant:first-child {
 		margin-left: 0;

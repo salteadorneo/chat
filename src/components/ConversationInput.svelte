@@ -29,6 +29,7 @@
 			bind:value={message}
 			placeholder="Escribe un mensaje aquí"
 			disabled={disabled}
+			autocomplete="off"
 		/>
 		<span on:click={handleMessage}><img src={Send} alt="Send" /></span>
 	</form>
