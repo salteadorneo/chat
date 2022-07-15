@@ -37,11 +37,10 @@
 
 	.spinner {
 		width: 60px;
-		height: 50vh;
 	}
 
 	.spinner img {
-		margin: 0 0 1em;
+		margin: .5em 0;
 		animation: pulse 2s infinite;
 	}
 
