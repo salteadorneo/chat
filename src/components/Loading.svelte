@@ -1,12 +1,8 @@
 <script lang="ts">
-	import Participants from "./Participants.svelte";
-
 	import Hearts from '../assets/Hearts.svg';
 	import Clubs from '../assets/Clubs.svg';
 	import Spades from '../assets/Spades.svg';
 	import Diamonds from '../assets/Diamonds.svg';
-
-	export let waiting
 </script>
 
 <div class="loading">
@@ -16,12 +12,6 @@
 		<img src={Spades} alt="" />
 		<img src={Diamonds} alt="" />
 	</div>
-	{#if waiting}
-		<footer>
-			<p>Esperando a los jugadores</p>
-			<Participants />
-		</footer>
-	{/if}
 </div>
 
 <style>
@@ -47,13 +37,5 @@
 	@keyframes pulse {
 		0%, 100% { transform: scale(.9); }
 		70% { transform: scale(1); }
-	}
-
-	footer {
-		position: fixed;
-		left: 0;
-		bottom: 30px;
-		width: 100%;
-		text-align: center;
 	}
 </style>

@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 
-	import { activeConversation, user } from '../store';
+	import { user } from '../store';
 
 	import { onMount } from 'svelte';
 
-	import { createConversation, getConversations, initialize } from '../services/chat';
+	import { initialize } from '../services/chat';
 	import { getAccessToken } from '../services/user'
 
 	import Loading from '../components/Loading.svelte'
-
-	import questions from '../data/questions.json'
 
 	let anonymousName = '';
 
@@ -22,26 +20,8 @@
 
 		if ($user) initialize({ accessToken: $user.token});
 
-		await getOrCreateRoom()
+		goto(`/lobby`)
 	});
-
-	async function getOrCreateRoom() {
-		const paginator = await getConversations({});
-		if (paginator && paginator.items[0]) {
-			goto('/' + paginator.items[0].channelState.uniqueName)
-			return
-		} else {
-			const newRoom = Math.random().toString(36).substring(2)
-			const conversation = await createConversation({ room: newRoom, attributes: { loading: true, questions: [questions[Math.floor(Math.random() * questions.length)]] } });
-			if (conversation) {
-				activeConversation.set(conversation);
-				goto(`/${newRoom}`)
-				return
-			}
-		}
-		sessionStorage.clear()
-		goto(`/`)
-	}
 
 	async function handleAnonymousLogin(e: SubmitEvent) {
 		e.preventDefault();
@@ -57,7 +37,7 @@
 
 		if ($user) initialize({ accessToken: $user.token});
 
-		await getOrCreateRoom()
+		goto(`/lobby`)
 	}
 </script>
 

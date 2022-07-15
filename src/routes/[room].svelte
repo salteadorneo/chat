@@ -94,15 +94,17 @@
 		</section>
 			
 		{:else}
-			<Loading waiting />
+			<Loading />
+			<footer>	
+				<p>Esperando a los jugadores</p>
+				<Participants />
+			</footer>
 		{/if}
 	{:else}
 		<section>
-			<!-- <button on:click={handleDelete}>Cerrar</button> -->
-
 			<Participants size="small" />
 			
-			<h1>El juego de Alice</h1>
+			<h1 on:dblclick={handleDelete}>El juego de Alice</h1>
 
 			<Questions />
 			
@@ -118,5 +120,13 @@
 		flex-direction: column;
 		height: 100vh;
 		padding: 20px 0 0;
+	}
+
+	footer {
+		position: fixed;
+		left: 0;
+		bottom: 30px;
+		width: 100%;
+		text-align: center;
 	}
 </style>

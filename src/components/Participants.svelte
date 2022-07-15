@@ -12,7 +12,7 @@
 </script>
 
 <section>
-	{#each [...$activeConversation.participants] as participant, i}
+	{#each Array.from($activeConversation.participants) as participant, i}
 		<div class={`participant ${size}`} title={participant[1].identity}><img src={ICONS[Math.floor(Math.random() * ICONS.length)]} alt="" /></div>
 	{/each}
 	<!-- {#each $activeConversation.attributes.invitations||[] as participant, i}
