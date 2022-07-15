@@ -14,6 +14,8 @@
 <svelte:head>
 	<title>El juego de Alice</title>
 	<meta name="description" content="El juego de Alice" />
+
+	<meta name="mobile-web-app-capable" content="yes">
 </svelte:head>
 
 <main>

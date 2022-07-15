@@ -98,7 +98,7 @@
 		{/if}
 	{:else}
 		<section>
-			<button on:click={handleDelete}>Cerrar</button>
+			<!-- <button on:click={handleDelete}>Cerrar</button> -->
 
 			<Participants size="small" />
 			
