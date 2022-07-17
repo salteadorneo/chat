@@ -1,10 +1,102 @@
 [
     {
-        "q": "What is your favorite color?",
-        "a": "blue"
+        "question": "¿Cuál es el segundo continente más grande del mundo?",
+        "answer": "África"
     },
     {
-        "q": "What is your favorite food?",
-        "a": "pizza"
+        "question": "¿Qué hormona controla el suministro de azúcar de la sangre a los músculos?",
+        "answer": "Insulina"
+    },
+    {
+        "question": "¿Cuál es la ciudad capital de Australia?",
+        "answer": "Canberra"
+    },
+    {
+        "question": "¿En qué país se encuentra el río Po?",
+        "answer": "Italia"
+    },
+    {
+        "question": "¿Cuál era la ciudad hogar de Marco Polo?",
+        "answer": "Venecia"
+    },
+    {
+        "question": "¿Con qué nombre firmaba Van Gogh sus obras?",
+        "answer": "Vincent"
+    },
+    {
+    "question": "¿En qué año llegó el hombre a la Luna?",
+    "answer": "1969"
+    },
+    {
+    "question": "¿En qué país se encuentra el pico Aconcagua?",
+    "answer": "Argentina"
+    },
+    {
+    "question": "¿Qué filósofo creó “El mito de la caverna”?",
+    "answer": "Platón"
+    },
+    {
+    "question": "¿Cómo se llama el caballo de Don Quijote de la Mancha?",
+    "answer": "Rocinante"
+    },
+    {
+    "question": "¿Cómo se llama el caballo de Rodrigo Díaz de Vivar, el Cid Campeador?",
+    "answer": "Babieca"
+    },
+    {
+    "question": "¿Cómo se llama el caballo de Alejandro Magno?",
+    "answer": "Bucéfalo"
+    },
+    {
+    "question": "¿En qué mes el Sol está más cerca de la Tierra?",
+    "answer": "Diciembre"
+    },
+    {
+    "question": "¿Cómo se llaman las células con un núcleo diferenciado?",
+    "answer": "Eucariotas"
+    },
+    {
+    "question": "¿Cuál es el único mes que puede tener menos de 4 fases lunares?",
+    "answer": "Febrero"
+    },
+    {
+    "question": "¿Cuál fue la primera película de Disney?",
+    "answer": "Blancanieves"
+    },
+    {
+    "question": "¿Cómo se llama el perro de Tintín?",
+    "answer": "Milú"
+    },
+    {
+    "question": "¿Cómo se llaman los deportistas que practican Judo?",
+    "answer": "Judokas"
+    },
+    {
+    "question": "¿En qué deporte destacó Carl Lewis?",
+    "answer": "Atletismo"
+    },
+    {
+    "question": "¿Dónde se inventó el Ping-Pong?",
+    "answer": "Inglaterra"
+    },
+    {
+    "question": "¿Cuántos rounds hay en un combate de boxeo olímpico?",
+    "answer": "Tres"
+    },
+    {
+    "question": "¿Qué emperador romano legalizó el cristianismo y puso fin a la persecución de los cristianos?",
+    "answer": "Constantino"
+    },
+    {
+    "question": "¿Cuántas personas murieron durante el Gran Incendio de Londres de 1666 según los registros?",
+    "answer": "6"
+    },
+    {
+    "question": "¿Qué hito informático de 1969 cambiaría radicalmente el curso de la historia de la humanidad?",
+    "answer": "Internet"
+    },
+    {
+    "question": "¿Quién fue el arquitecto de la primera pirámide de Egipto?",
+    "answer": "Imhotep"
     }
 ]

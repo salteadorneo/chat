@@ -27,7 +27,7 @@
 	});
 
 	function isCorrect(message: { body: string; author: string; attributes: JSONValue }) {
-		const correct = $activeConversation.attributes.question ? $activeConversation.attributes.question.answer : 'no-question'
+		const correct = $activeConversation.attributes.questions[$activeConversation.participants.size - 2].answer
 		if (message.body.localeCompare(correct.toLowerCase(), 'en', { sensitivity: 'base'}) == 0) return true
 		return false
 	}
@@ -46,7 +46,6 @@
 			const participants = conversation.participants || []
 			
 			const participantsNoWinners = Array.from(participants).filter(p => !winners.includes(p[1].identity))
-			console.log('participantsNoWinners', participantsNoWinners)
 			if (participantsNoWinners.length == 1) {
 				const loser = participantsNoWinners[0]
 
@@ -57,8 +56,7 @@
 					params: {
 						...$activeConversation.attributes,
 						winners: [],
-						loser: loser[1].identity,
-						question: { question: '', answer: '' },
+						loser: loser[1].identity
 					}
 				});
 			}

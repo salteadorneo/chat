@@ -38,11 +38,13 @@
 				removeParticipantLoser()
 			}
 
-			$activeConversation.on('updated', (data: { conversation: Conversation, updateReasons: Array<[]> }) => {
+			$activeConversation.on('updated', async (data: { conversation: Conversation, updateReasons: Array<[]> }) => {
 				activeConversation.set(data.conversation)
 
-				console.log('updated', $activeConversation.attributes)
-				if ($activeConversation.attributes.loser) {
+				const loser = $activeConversation.attributes.loser
+				const participants = Array.from($activeConversation.participants)
+				const loserIsParticipant = participants.filter(p => loser == p[1].identity)
+				if (loser && loserIsParticipant.length) {
 					removeParticipantLoser()
 				}
 			});
@@ -63,16 +65,6 @@
 
 			$activeConversation.on('participantLeft', (participant: Participant) => {
 				if (participant.identity == $user?.name) goto('/game-over');
-
-				updateAttrConversation({
-					room: $activeConversation.uniqueName,
-					params: {
-						...$activeConversation.attributes,
-						winners: [],
-						loser: null,
-						question: questions[Math.floor(Math.random() * questions.length)]
-					}
-				});
 
 				setTimeout(async () => {
 					const conversation = await refreshConversation({ room: $page.params.room });
@@ -137,7 +129,7 @@
 			
 			<h1 on:dblclick={handleDelete}>El juego de Alice</h1>
 
-			<Questions data={$activeConversation.attributes.question} />
+			<Questions data={$activeConversation.attributes.questions[$activeConversation.participants.size - 2]} />
 			
 			<Conversation />
 			<ConversationInput disabled={$activeConversation.attributes.winners?.includes($user?.name)} />

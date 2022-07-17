@@ -3,7 +3,7 @@
 </script>
 
 <section>
-	<p>{data.question}</p>
+	{#if data}<p>{data.question}</p>{/if}
 </section>
 
 <style>

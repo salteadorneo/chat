@@ -2,12 +2,20 @@
 	import { activeConversation } from "../store";
 	import { updateAttrConversation } from "../services/chat";
 
+	import questionsData from "../data/questions.json"
+
 	function handleStart() {
+
+		let questions = []
+		for (let i = 0; i < $activeConversation.participants.size - 1; i++)
+			questions.push(questionsData[Math.floor(Math.random() * questionsData.length)])
+
 		updateAttrConversation({ 
 			room: $activeConversation.uniqueName, 
 			params: { 
 				...$activeConversation.attributes, 
-				loading: !$activeConversation.attributes.loading 
+				loading: !$activeConversation.attributes.loading,
+				questions
 			}
 		});
 	}

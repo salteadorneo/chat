@@ -9,7 +9,7 @@
 
 	import Loading from '../components/Loading.svelte'
 
-	import questions from '../data/questions.json'
+	import UserLogged from '../components/UserLogged.svelte';
 
 	onMount(async () => {
 		const localUser = sessionStorage.user ? JSON.parse(sessionStorage.user) : {};
@@ -24,7 +24,11 @@
 
 	async function checkRoom() {
 		const paginator = await getConversations({});
-		if (paginator && paginator.items[0]) {
+		if (!paginator) {
+			sessionStorage.clear()
+			goto('/')
+		}
+		if (paginator.items[0]) {
 			goto('/' + paginator.items[0].channelState.uniqueName)
 		} else {
 			setTimeout(checkRoom, 2000);
@@ -39,7 +43,7 @@
 			room: newRoom, 
 			attributes: { 
 				loading: true, 
-				question: questions[Math.floor(Math.random() * questions.length)]
+				questions: []
 			} 
 		});
 		if (conversation) {
@@ -49,6 +53,7 @@
 	}
 </script>
 
+<UserLogged />
 <Loading />
 <footer>
 	<p>Esperando invitación...</p>
