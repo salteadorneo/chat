@@ -15,7 +15,7 @@
 		const localUser = sessionStorage.user ? JSON.parse(sessionStorage.user) : {};
 		user.set(localUser);
 		
-		if (!$user || $user?.token == null) return
+		if (!$user || $user?.token == null) goto('/');
 
 		if ($user) initialize({ accessToken: $user.token});
 
@@ -33,15 +33,13 @@
 
 	async function handleCreateRoom(e: Event) {
 		e.preventDefault()
-		
+
 		const newRoom = Math.random().toString(36).substring(2)
 		const conversation = await createConversation({ 
 			room: newRoom, 
 			attributes: { 
 				loading: true, 
-				questions: [
-					questions[Math.floor(Math.random() * questions.length)]
-				] 
+				question: questions[Math.floor(Math.random() * questions.length)]
 			} 
 		});
 		if (conversation) {

@@ -79,8 +79,12 @@ export const leaveConversation = async (
 export const removeParticipantConversation = async (
   { room, participant } : { room: string, participant }
   ) => {
-    const conversation = await client.getConversationByUniqueName(room)
-    return await conversation.removeParticipant(participant)
+    try {
+      const conversation = await client.getConversationByUniqueName(room)
+      return await conversation.removeParticipant(participant)
+    } catch (e) {
+      return null
+    }
   }
 
 export const getConversation = async (

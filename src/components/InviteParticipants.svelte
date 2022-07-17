@@ -56,9 +56,9 @@
 		participant = ''
 	}
 
-	async function handleRemoveParticipant(participant) {
-		await removeParticipantConversation({ room: $activeConversation.uniqueName, participant: participant });
-	}
+	// async function handleRemoveParticipant(participant) {
+	// 	await removeParticipantConversation({ room: $activeConversation.uniqueName, participant: participant });
+	// }
 
 	async function handleRemoveInvitate(participant) {
 		const invitations = $activeConversation.attributes.invitations || []
@@ -87,7 +87,7 @@
 <section>
 	<h3>Jugadores</h3>
 
-	{#each [...$activeConversation.participants] as participant, i}
+	{#each Array.from($activeConversation.participants) as participant, i}
 		<div class="participant">
 			<span><img src={ICONS[Math.floor(Math.random() * ICONS.length)]} alt="" /></span>
 			{participant[1].identity}

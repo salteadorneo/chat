@@ -17,13 +17,15 @@
 
 	let bodyTimer = '', timer = config.seconds_timer_delete_participant
 	if (body.includes('{timer}')) {
+		const username = body.split(' ')[0]
+		
 		bodyTimer = body.replace('{timer}', timer.toString())
 		const intervalTimer = setInterval(() => {
 			if (timer > 0) timer--
 			bodyTimer = body.replace('{timer}', timer.toString())
 			if (timer <= 0) {
 				clearInterval(intervalTimer)
-				bodyTimer = bodyTimer.split(' ')[0] + ' ha sido eliminado'
+				bodyTimer = username + ' ha sido eliminado'
 			}
 		}, 1000)
 	}

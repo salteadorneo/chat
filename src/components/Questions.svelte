@@ -1,11 +1,9 @@
 <script lang="ts">
-	import { activeConversation } from "../store"
-
-	const question = $activeConversation?.attributes.questions ? $activeConversation?.attributes.questions[0] : {q: ''}
+	export let data = { question: '', answer: '' }
 </script>
 
 <section>
-	<p>{question.q}</p>
+	<p>{data.question}</p>
 </section>
 
 <style>
@@ -13,7 +11,7 @@
 		position: relative;
 		left: -5%;
 		width: 99vw;
-		min-height: 60px;
+		/* min-height: 60px; */
 
 		font-weight: 700;
 		background: var(--background);

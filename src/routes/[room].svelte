@@ -3,7 +3,7 @@
 
 	import { onMount } from 'svelte';
 
-	import { initialize, getConversation, updateAttrConversation, deleteConversation } from '../services/chat';
+	import { initialize, getConversation, updateAttrConversation, deleteConversation, removeParticipantConversation } from '../services/chat';
 	import { activeConversation, user } from '../store';
 
 	import Conversation from '../components/Conversation.svelte';
@@ -20,19 +20,31 @@
 	import Questions from '../components/Questions.svelte';
 	import Stats from '../components/Stats.svelte';
 
+	import config from '../data/config.json';
+	import questions from '../data/questions.json';
+
 	onMount(async () => {
 		const localUser = sessionStorage.user ? JSON.parse(sessionStorage.user) : {};
 		user.set(localUser);
 		
-		// if (!$user || $user?.token == null) goto('/?ref=' + $page.params.room);
+		if (!$user || $user?.token == null) goto('/');
 
 		if ($user) initialize({ accessToken: $user.token});
 
 		const conversation = await refreshConversation({ room: $page.params.room });
 		if (conversation) {
 
+			if ($activeConversation.attributes.loser) {
+				removeParticipantLoser()
+			}
+
 			$activeConversation.on('updated', (data: { conversation: Conversation, updateReasons: Array<[]> }) => {
 				activeConversation.set(data.conversation)
+
+				console.log('updated', $activeConversation.attributes)
+				if ($activeConversation.attributes.loser) {
+					removeParticipantLoser()
+				}
 			});
 
 			$activeConversation.on('participantJoined', (participant: Participant) => {
@@ -52,6 +64,16 @@
 			$activeConversation.on('participantLeft', (participant: Participant) => {
 				if (participant.identity == $user?.name) goto('/game-over');
 
+				updateAttrConversation({
+					room: $activeConversation.uniqueName,
+					params: {
+						...$activeConversation.attributes,
+						winners: [],
+						loser: null,
+						question: questions[Math.floor(Math.random() * questions.length)]
+					}
+				});
+
 				setTimeout(async () => {
 					const conversation = await refreshConversation({ room: $page.params.room });
 
@@ -67,6 +89,15 @@
 			goto('/');
 		}
 	});
+
+	function removeParticipantLoser() {
+		setTimeout(() => {
+			removeParticipantConversation({ 
+				room: $activeConversation.uniqueName,
+				participant: $activeConversation.attributes.loser
+			});
+		}, config.seconds_timer_delete_participant * 1000);
+	}
 
 	async function refreshConversation({ room }) {
 		const conversation = await getConversation({ room });
@@ -106,7 +137,7 @@
 			
 			<h1 on:dblclick={handleDelete}>El juego de Alice</h1>
 
-			<Questions />
+			<Questions data={$activeConversation.attributes.question} />
 			
 			<Conversation />
 			<ConversationInput disabled={$activeConversation.attributes.winners?.includes($user?.name)} />
