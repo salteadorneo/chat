@@ -6,13 +6,19 @@
 	export let disabled = false
 
 	let message = '';
+	
+	let messageInput
 
 	function handleMessage(e) {
 		if (e) e.preventDefault();
+		
 		message = message.trim()
 		if (!message) return
 		$activeConversation.sendMessage(message);
 		message = '';
+		
+		messageInput.focus()
+		
 	}
 
 	const handleKeyDown = (event: KeyboardEvent) => {
@@ -26,6 +32,7 @@
 	<form on:submit={handleMessage}>
 		<input
 			type="text"
+			bind:this={messageInput}
 			bind:value={message}
 			placeholder="Escribe un mensaje aquí"
 			disabled={disabled}
