@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { removeParticipantConversation, updateAttrConversation } from '../services/chat';
+	import { updateAttrConversation } from '../services/chat';
 
 	import { activeConversation, user } from '../store';
 
@@ -56,10 +56,6 @@
 		participant = ''
 	}
 
-	// async function handleRemoveParticipant(participant) {
-	// 	await removeParticipantConversation({ room: $activeConversation.uniqueName, participant: participant });
-	// }
-
 	async function handleRemoveInvitate(participant) {
 		const invitations = $activeConversation.attributes.invitations || []
 		let conversation = await updateAttrConversation({ 
@@ -104,9 +100,6 @@
 					<button on:click={() => handleShareLink(participant[1].identity)}>
 						<img src={Share} alt="Share" /> Compartir
 					</button>
-					<!-- <button on:click={() => handleRemoveParticipant(participant[0])}>
-						<img src={} alt="Remove" />
-					</button> -->
 				</div>
 			{/if}
 		</div>

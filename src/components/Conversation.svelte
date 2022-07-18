@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { JSONValue } from '@twilio/conversations';
-	import { removeParticipantConversation, updateAttrConversation } from '../services/chat';
+	import { updateAttrConversation } from '../services/chat';
 
 	import { onMount, afterUpdate } from 'svelte';
 	import { activeConversation, user } from '../store';
