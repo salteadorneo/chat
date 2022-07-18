@@ -9,8 +9,6 @@
 
 	import Loading from '../components/Loading.svelte'
 
-	import UserLogged from '../components/UserLogged.svelte';
-
 	onMount(async () => {
 		const localUser = sessionStorage.user ? JSON.parse(sessionStorage.user) : {};
 		user.set(localUser);
@@ -54,10 +52,8 @@
 	}
 </script>
 
-<UserLogged />
 <Loading />
 <footer>
-	<p>Esperando invitación...</p>
 	<button on:click={handleCreateRoom}>Empezar nuevo juego</button>
 </footer>
 

@@ -36,19 +36,12 @@
 		if (conversation) {
 			welcome = $activeConversation.lastMessage == undefined
 
-			if ($activeConversation.attributes.loser) {
-				removeParticipantLoser()
-			}
+			removeParticipantLoser()
 
 			$activeConversation.on('updated', async (data: { conversation: Conversation, updateReasons: Array<[]> }) => {
 				activeConversation.set(data.conversation)
 
-				const loser = $activeConversation.attributes.loser
-				const participants = Array.from($activeConversation.participants)
-				const loserIsParticipant = participants.filter(p => loser == p[1].identity)
-				if (loser && loserIsParticipant.length) {
-					removeParticipantLoser()
-				}
+				removeParticipantLoser()
 			});
 
 			$activeConversation.on('participantJoined', (participant: Participant) => {
@@ -85,12 +78,14 @@
 	});
 
 	function removeParticipantLoser() {
-		setTimeout(() => {
-			removeParticipantConversation({ 
-				room: $activeConversation.uniqueName,
-				participant: $activeConversation.attributes.loser
-			});
-		}, config.seconds_timer_delete_participant * 1000);
+		if (!$activeConversation.attributes.loading && $activeConversation.attributes.loser) {
+			setTimeout(() => {
+				removeParticipantConversation({ 
+					room: $activeConversation.uniqueName,
+					participant: $activeConversation.attributes.loser
+				});
+			}, config.seconds_timer_delete_participant * 1000);
+		}
 	}
 
 	async function refreshConversation({ room }) {
@@ -124,6 +119,10 @@
 			}
 		});
 	}
+
+	function parseName(participant: string) {
+		return participant.split('-')[0]
+	}
 </script>
 
 {#if $activeConversation?.uniqueName}
@@ -132,7 +131,7 @@
 		{#if $activeConversation.createdBy == $user?.name}
 
 		<section>
-			<h1>Hola {$user?.name}</h1>
+			<h1>Hola {parseName($user?.name)}</h1>
 			<Stats />
 			<InviteParticipants />
 			<Game action={startGame} />

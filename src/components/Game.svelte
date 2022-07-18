@@ -5,8 +5,12 @@
 </script>
 
 <section>
-	<h3>El juego de Alice</h3>
-	<p>Un chat donde pondrás a prueba tus conocimientos.<br /><br />El último en acertar, será eliminado.</p>
+	{#if $activeConversation.participants.size <= 1}
+		<p>Debes esperar a que algún jugador acepte tu invitación.</p>
+	{/if}
+	{#if $activeConversation.attributes.invitations?.length >= 1}
+		<p>Algunos invitados todavía no han entrado.</p>
+	{/if}
 	<button on:click={action} disabled={$activeConversation.participants.size <= 1}>Empezar</button>
 </section>
 

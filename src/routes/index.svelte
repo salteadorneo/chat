@@ -26,11 +26,12 @@
 	async function handleAnonymousLogin(e: SubmitEvent) {
 		e.preventDefault();
 
-		anonymousName = anonymousName.toLowerCase().trim()
+		let anonymousName2 = anonymousName.toLowerCase().trim()
+		anonymousName2 += '-' + Math.random().toString(36).substring(2)
 
-		const accessToken = await getAccessToken({ token: `anonymous_${anonymousName}` });
+		const accessToken = await getAccessToken({ token: `anonymous_${anonymousName2}` });
 		user.set({
-			name: anonymousName,
+			name: anonymousName2,
 			token: accessToken,
 		});
 		sessionStorage.user = JSON.stringify($user)

@@ -37,7 +37,7 @@
 <div class="participant {invite ? 'noregister' : ''}">
 	<span><img src={ICONS[Math.floor(Math.random() * ICONS.length)]} alt="" /></span>
 	{parseName(participant)}
-	{#if $activeConversation.createdBy != participant}
+	{#if $activeConversation.createdBy != participant && invite}
 		<div class="actions">
 			<button on:click={() => handleCopyLink(participant)}>
 				<img src={Clipboard} alt="Copy" /> {copied ? 'Copiado' : 'Copiar'}
@@ -88,6 +88,6 @@
 	}
 
 	.noregister span {
-		opacity: .5;
+		opacity: .3;
 	}
 </style>

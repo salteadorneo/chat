@@ -48,8 +48,7 @@
 </script>
 
 <section>
-	<h3>Jugadores (4 máx.)</h3>
-	<p>Envía enlaces privados a cada jugador</p>
+	<h3>Jugadores</h3>
 
 	{#each Array.from($activeConversation.participants) as participant, i}
 		<Participant participant={participant[1].identity} />
@@ -58,12 +57,10 @@
 		<Participant participant={participant} invite />
 	{/each}
 
-	{#if ($activeConversation.participants.size + ($activeConversation.attributes.invitations||[]).length) <= 3}
-		<form on:submit={handleAddParticipant}>
-			<button>+</button>
-			<input type="text" placeholder="Introduce nombre de nuevo jugador" bind:value={participant} />
-		</form>
-	{/if}
+	<form on:submit={handleAddParticipant}>
+		<button>+</button>
+		<input type="text" placeholder="Introduce nombre de nuevo jugador" bind:value={participant} />
+	</form>
 </section>
 
 <style>
