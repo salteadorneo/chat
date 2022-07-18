@@ -19,9 +19,9 @@
 	import Game from '../components/Game.svelte';
 	import Questions from '../components/Questions.svelte';
 	import Stats from '../components/Stats.svelte';
+	import Welcome from '../components/Welcome.svelte';
 
 	import config from '../data/config.json';
-	import questions from '../data/questions.json';
 
 	onMount(async () => {
 		const localUser = sessionStorage.user ? JSON.parse(sessionStorage.user) : {};
@@ -33,6 +33,7 @@
 
 		const conversation = await refreshConversation({ room: $page.params.room });
 		if (conversation) {
+			welcome = $activeConversation.lastMessage == undefined
 
 			if ($activeConversation.attributes.loser) {
 				removeParticipantLoser()
@@ -102,6 +103,11 @@
 		await deleteConversation({ room: $activeConversation.uniqueName });
 		goto('/');
 	}
+
+	let welcome = true
+	function handleClick() {
+		welcome = false
+	}
 </script>
 
 {#if $activeConversation?.uniqueName}
@@ -124,6 +130,7 @@
 			</footer>
 		{/if}
 	{:else}
+		{#if welcome}<Welcome handleClick={handleClick} />{/if}
 		<section>
 			<Participants size="small" />
 			
