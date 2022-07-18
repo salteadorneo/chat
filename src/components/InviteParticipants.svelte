@@ -123,7 +123,7 @@
 
 	<form on:submit={handleAddParticipant}>
 		<button>+</button>
-		<input type="text" placeholder="Añadir jugador" bind:value={participant} />
+		<input type="text" placeholder="Introduce nombre de nuevo jugador" bind:value={participant} />
 	</form>
 </section>
 
@@ -192,9 +192,9 @@
 	}
 	form button {
 		border-radius: 50%;
-		padding: 2px 0 0;
+		padding: 0;
 		width: 28px;
-		line-height: 24px;
+		line-height: 26px;
 		font-size: 20px;
 	}
 </style>
