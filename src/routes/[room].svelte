@@ -22,6 +22,7 @@
 	import Welcome from '../components/Welcome.svelte';
 
 	import config from '../data/config.json';
+	import questionsData from "../data/questions.json"
 
 	onMount(async () => {
 		const localUser = sessionStorage.user ? JSON.parse(sessionStorage.user) : {};
@@ -108,6 +109,21 @@
 	function handleClick() {
 		welcome = false
 	}
+
+	function startGame() {
+		let questions = []
+		for (let i = 0; i < $activeConversation.participants.size - 1; i++)
+			questions.push(questionsData[Math.floor(Math.random() * questionsData.length)])
+
+		updateAttrConversation({ 
+			room: $activeConversation.uniqueName, 
+			params: { 
+				...$activeConversation.attributes, 
+				loading: !$activeConversation.attributes.loading,
+				questions
+			}
+		});
+	}
 </script>
 
 {#if $activeConversation?.uniqueName}
@@ -119,7 +135,7 @@
 			<h1>Hola {$user?.name}</h1>
 			<Stats />
 			<InviteParticipants />
-			<Game />
+			<Game action={startGame} />
 		</section>
 			
 		{:else}

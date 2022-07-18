@@ -47,7 +47,7 @@
 			if (participantsNoWinners.length == 1) {
 				const loser = participantsNoWinners[0]
 
-				await $activeConversation.sendMessage(loser[1].identity + ' será eliminado en {timer} segundos...', { label: true, anonymous: true })
+				await $activeConversation.sendMessage(parseName(loser[1].identity) + ' será eliminado en {timer} segundos...', { label: true, anonymous: true })
 
 				await updateAttrConversation({ 
 					room: $activeConversation.uniqueName, 
@@ -59,6 +59,10 @@
 				});
 			}
 		}
+	}
+	
+	function parseName(participant: string) {
+		return participant.split('-')[0]
 	}
 
 	function checkMessage(message: { body: string; author: string; attributes: JSONValue }) {

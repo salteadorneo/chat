@@ -2,8 +2,8 @@
 </script>
 
 <section>
-	<strong>Invita a tus amigos</strong>
-	<p>¿Podrás acertar todas las preguntas antes que ellos?</p>
+	<strong>El juego de Alice</strong>
+	<p>¿Podrás acertar las preguntas antes que tus amigos? En este chat, el último en acertar, queda eliminado.</p>
 </section>
 
 <style>

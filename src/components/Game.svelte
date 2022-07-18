@@ -1,32 +1,14 @@
 <script lang="ts">
 	import { activeConversation } from "../store";
-	import { updateAttrConversation } from "../services/chat";
 
-	import questionsData from "../data/questions.json"
-
-	function handleStart() {
-		let questions = []
-		for (let i = 0; i < $activeConversation.participants.size - 1; i++)
-			questions.push(questionsData[Math.floor(Math.random() * questionsData.length)])
-
-		updateAttrConversation({ 
-			room: $activeConversation.uniqueName, 
-			params: { 
-				...$activeConversation.attributes, 
-				loading: !$activeConversation.attributes.loading,
-				questions
-			}
-		});
-	}
+	export let action
 </script>
 
-<div>
-	<section>
-		<h3>El juego de Alice</h3>
-		<p>Un chat donde pondrás a prueba tus conocimientos.<br /><br />El último en acertar, será eliminado.</p>
-		<button on:click={handleStart} disabled={$activeConversation.participants.size <= 1}>Empezar</button>
-	</section>
-</div>
+<section>
+	<h3>El juego de Alice</h3>
+	<p>Un chat donde pondrás a prueba tus conocimientos.<br /><br />El último en acertar, será eliminado.</p>
+	<button on:click={action} disabled={$activeConversation.participants.size <= 1}>Empezar</button>
+</section>
 
 <style>
 	section {
@@ -35,8 +17,6 @@
 		width: 100%;
 		border-top-left-radius: 12px;
 		border-top-right-radius: 12px;
-		/* position: fixed;
-		bottom: 0; */
 		border: 1px solid var(--primary);
 		border-bottom: 0;
 		padding: 25px;

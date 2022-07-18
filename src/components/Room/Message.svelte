@@ -16,7 +16,7 @@
 
 	let bodyTimer = '', timer = config.seconds_timer_delete_participant
 	if (body.includes('{timer}')) {
-		const username = body.split(' ')[0]
+		const username = parseName(body.split(' ')[0])
 		
 		bodyTimer = body.replace('{timer}', timer.toString())
 		const intervalTimer = setInterval(() => {
@@ -29,10 +29,13 @@
 		}, 1000)
 	}
 	
+	function parseName(participant: string) {
+		return participant.split('-')[0]
+	}
 </script>
 
 <div class={`${userOrigin}`}>
-	{#if !attributes?.anonymous }<small>{author}</small>{/if}
+	{#if !attributes?.anonymous }<small>{parseName(author)}</small>{/if}
 	<p>{bodyTimer || body}</p>
 </div>
 
