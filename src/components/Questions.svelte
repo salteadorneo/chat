@@ -11,8 +11,6 @@
 		position: relative;
 		left: -5%;
 		width: 99vw;
-		/* min-height: 60px; */
-
 		font-weight: 700;
 		background: var(--background);
 		border-top: 1px solid var(--primary);

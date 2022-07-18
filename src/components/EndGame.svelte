@@ -6,9 +6,6 @@
 </script>
 
 <section>
-    <!-- {#await Image() then module}
-	    <img src={module.default} alt="" />
-    {/await} -->
     {#if win}
         <img src={Win} alt="" />
         <h2>¡Juego superado!</h2>

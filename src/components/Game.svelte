@@ -5,7 +5,6 @@
 	import questionsData from "../data/questions.json"
 
 	function handleStart() {
-
 		let questions = []
 		for (let i = 0; i < $activeConversation.participants.size - 1; i++)
 			questions.push(questionsData[Math.floor(Math.random() * questionsData.length)])
@@ -22,13 +21,9 @@
 </script>
 
 <div>
-	<!-- <strong>El juego de Alice</strong> -->
 	<section>
-		<h3>Reglas del juego</h3>
-		<p>But I must explain to you how all this mistaken
-			idea of denouncing pleasure and praising pain
-			of the system, and expound the ateachings of
-			the great explor</p>
+		<h3>El juego de Alice</h3>
+		<p>Un chat donde pondrás a prueba tus conocimientos con tus invitados.<br /><br />El último en contestar, será eliminado.</p>
 		<button on:click={handleStart} disabled={$activeConversation.participants.size <= 1}>Empezar</button>
 	</section>
 </div>
@@ -46,6 +41,7 @@
 		border-bottom: 0;
 		padding: 25px;
 		background: var(--background);
+		text-align: center;
 	}
 
 	button {

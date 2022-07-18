@@ -130,8 +130,10 @@
 			</footer>
 		{/if}
 	{:else}
-		{#if welcome}<Welcome handleClick={handleClick} />{/if}
 		<section>
+		{#if welcome}
+			<Welcome handleClick={handleClick} />
+		{:else}
 			<Participants size="small" />
 			
 			<h1 on:dblclick={handleDelete}>El juego de Alice</h1>
@@ -140,6 +142,7 @@
 			
 			<Conversation />
 			<ConversationInput disabled={$activeConversation.attributes.winners?.includes($user?.name)} />
+		{/if}
 		</section>
 	{/if}
 {/if}

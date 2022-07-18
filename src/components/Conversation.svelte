@@ -6,8 +6,6 @@
 	import { activeConversation, user } from '../store';
 	import Message from './Message.svelte';
 
-	import config from '../data/config.json'
-	
 	let div: HTMLDivElement;
 	let messages: Array<{ body: string; author: string; attributes: JSONValue }> = [];
 

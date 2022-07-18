@@ -27,8 +27,9 @@
 		if (!paginator) {
 			sessionStorage.clear()
 			goto('/')
+			return
 		}
-		if (paginator.items[0]) {
+		if (paginator?.items[0]) {
 			goto('/' + paginator.items[0].channelState.uniqueName)
 		} else {
 			setTimeout(checkRoom, 2000);

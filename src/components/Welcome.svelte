@@ -3,17 +3,16 @@
 	import Clubs from '../assets/Clubs.svg';
 	import Spades from '../assets/Spades.svg';
 	import Diamonds from '../assets/Diamonds.svg';
-
-	export let handleClick
-
+	
+	export let handleClick: Function
 	function handleStart() {
 		handleClick()
 	}
 </script>
 
 <section>
-	<h2>Bienvenido a<br />El juego de Alice</h2>
-	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga voluptates in modi enim fugiat ipsam repellat, laborum et veniam nobis, perferendis, odio recusandae porro illum amet totam voluptatem quaerat possimus?</p>
+	<h2>El juego de Alice</h2>
+	<p>Se lanzarán preguntas que deberás resolver lo más rápido posible. Si eres el último, quedarás eliminado y expulsado del juego.</p>
 	<div class="icons">
 		<img src={Hearts} alt="" />
 		<img src={Clubs} alt="" />
@@ -25,6 +24,11 @@
 
 <style>
 	section {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 80%;
+		margin: 0 10%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -41,6 +45,7 @@
 	}
 
 	p {
+		font-size: 14px;
 		margin: 0 0 1em;
 	}
 
@@ -54,8 +59,5 @@
 
 	img {
 		height: 20px;
-	}
-
-	button {
 	}
 </style>

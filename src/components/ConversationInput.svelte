@@ -7,8 +7,7 @@
 
 	let message = '';
 	
-	let messageInput
-
+	let messageInput: HTMLInputElement
 	function handleMessage(e) {
 		if (e) e.preventDefault();
 		

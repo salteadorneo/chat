@@ -2,13 +2,13 @@
 </script>
 
 <section>
-	<strong>El juego de Alice</strong>
-	<p>Este es el porcentaje de personas que salen del juego.</p>
-	<p>¿Te atreves a probar?</p>
+	<strong>Invita a tus amigos</strong>
+	<p>¿Podrás acertar todas las preguntas antes que ellos?</p>
 </section>
 
 <style>
 	section {
+		width: 100%;
 		border-radius: 12px;
 		padding: 20px;
 		color: var(--background);

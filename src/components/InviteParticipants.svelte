@@ -72,10 +72,14 @@
 		if (conversation) activeConversation.set(conversation);
 	}
 
+	let copied = false
 	function handleCopyLink(participant) {
 		const url = `${window.location.origin}/inv/${$activeConversation.uniqueName}/${participant}`;
 		navigator.clipboard.writeText(url);
-		alert('Copiado')
+		copied = participant
+		setTimeout(() => {
+			copied = false
+		}, 3000);
 	}
 
 	function handleShareLink(participant) {
@@ -85,16 +89,17 @@
 </script>
 
 <section>
-	<h3>Jugadores</h3>
+	<h3>Jugadores (4 máx.)</h3>
+	<p>Envía enlaces privados a cada jugador</p>
 
 	{#each Array.from($activeConversation.participants) as participant, i}
 		<div class="participant">
-			<span><img src={ICONS[Math.floor(Math.random() * ICONS.length)]} alt="" /></span>
+			<span><img src={ICONS[i]} alt="" /></span>
 			{participant[1].identity}
 			{#if createdBy != participant[1].identity}
 				<div class="actions">
 					<button on:click={() => handleCopyLink(participant[1].identity)}>
-						<img src={Clipboard} alt="Copy" /> Copiar
+						<img src={Clipboard} alt="Copy" /> {copied == participant[1].identity ? 'Copiado' : 'Copiar'}
 					</button>
 					<button on:click={() => handleShareLink(participant[1].identity)}>
 						<img src={Share} alt="Share" /> Compartir
@@ -108,11 +113,11 @@
 	{/each}
 	{#each $activeConversation.attributes.invitations||[] as participant, i}
 		<div class="participant noregister">
-			<span><img src={ICONS[Math.floor(Math.random() * ICONS.length)]} alt="" /></span>
+			<span><img src={ICONS[i]} alt="" /></span>
 			{participant}
 			<div class="actions">
 				<button on:click={() => handleCopyLink(participant)}>
-					<img src={Clipboard} alt="Copy" /> Copiar
+					<img src={Clipboard} alt="Copy" /> {copied == participant ? 'Copiado' : 'Copiar'}
 				</button>
 				<button on:click={() => handleShareLink(participant)}>
 					<img src={Share} alt="Share" /> Compartir
@@ -121,10 +126,12 @@
 		</div>
 	{/each}
 
-	<form on:submit={handleAddParticipant}>
-		<button>+</button>
-		<input type="text" placeholder="Introduce nombre de nuevo jugador" bind:value={participant} />
-	</form>
+	{#if ($activeConversation.participants.size + ($activeConversation.attributes.invitations||[]).length) <= 3}
+		<form on:submit={handleAddParticipant}>
+			<button>+</button>
+			<input type="text" placeholder="Introduce nombre de nuevo jugador" bind:value={participant} />
+		</form>
+	{/if}
 </section>
 
 <style>
@@ -132,6 +139,17 @@
 		height: 100%;
 		margin: 0 0 40px;
 	}
+
+	h3 {
+		margin: 0 0 1em;
+	}
+
+	p {
+		font-size: 12px;
+		width: 100%;
+		margin: 0 0 2em;
+	}
+
 	.participant {
 		display: flex;
 		align-items: center;

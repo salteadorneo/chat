@@ -14,7 +14,6 @@
 	if (attributes?.label) userOrigin = 'label'
 	if (attributes?.anonymous) userOrigin = 'label anonymous'
 
-
 	let bodyTimer = '', timer = config.seconds_timer_delete_participant
 	if (body.includes('{timer}')) {
 		const username = body.split(' ')[0]
