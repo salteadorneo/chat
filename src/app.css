@@ -40,6 +40,11 @@ button {
     padding: 7px 28px;
 }
 
+button:not([disabled]):hover {
+    background: var(--primary);
+    color: var(--background);
+}
+
 h1, h2 {
     font-size: 36px;
     font-weight: 800;

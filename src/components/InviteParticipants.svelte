@@ -56,18 +56,6 @@
 		participant = ''
 	}
 
-	async function handleRemoveInvitate(participant) {
-		const invitations = $activeConversation.attributes.invitations || []
-		let conversation = await updateAttrConversation({ 
-			room: $activeConversation.uniqueName, 
-			params: {
-				...$activeConversation.attributes,
-				invitations: invitations.filter(p => p != participant)
-			}
-		});
-		if (conversation) activeConversation.set(conversation);
-	}
-
 	let copied = false
 	function handleCopyLink(participant) {
 		const url = `${window.location.origin}/inv/${$activeConversation.uniqueName}/${participant}`;

@@ -9,14 +9,14 @@
     {#if win}
         <img src={Win} alt="" />
         <h2>¡Juego superado!</h2>
-        <p>Has ganado esta carta.</p>
+        <!-- <p>Has conseguido ser el mejor.</p> -->
     {:else}
         <img src={GameOver} alt="" />
         <h2>¡Eliminado!</h2>
-        <p>No has podido superar el juego.</p>
+        <!-- <p>No has superado el juego.</p> -->
     {/if}
 </section>
-<a href="/">Empezar nuevo juego</a>
+<a href="/">Volver a sala de espera</a>
 
 <style>
 	section {

@@ -64,9 +64,9 @@
 
 	input[type=text] {
 		width: 100%;
-		border: 1px solid var(--primary);
+		border: none;
 		border-radius: 12px;
-		padding: 8px 20px;
+		padding: 8px;
 		background: var(--background);
 		appearance: none;
 		outline: none;

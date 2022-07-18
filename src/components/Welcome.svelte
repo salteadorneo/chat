@@ -26,13 +26,14 @@
 	section {
 		position: fixed;
 		top: 0;
-		left: 0;
-		width: 80%;
-		margin: 0 10%;
+		left: 50%;
+		transform: translateX(-50%);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		width: 80%;
+		max-width: 400px;
 		height: 100vh;
 		opacity: 0;
 		animation: fadeIn .5s ease-in-out forwards;
