@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { JSONValue } from '@twilio/conversations';
 
-	import { user } from '../store';
+	import { user } from '../../store';
 
-	import config from '../data/config.json'
+	import config from '../../data/config.json'
 
 	export let message: { body: string; author: string; attributes: JSONValue };
 

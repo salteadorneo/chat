@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { JSONValue } from '@twilio/conversations';
-	import { updateAttrConversation } from '../services/chat';
+	import { updateAttrConversation } from '../../services/chat';
 
 	import { onMount, afterUpdate } from 'svelte';
-	import { activeConversation, user } from '../store';
-	import Message from './Message.svelte';
+	import { activeConversation, user } from '../../store';
+	import Message from '../Room/Message.svelte';
 
 	let div: HTMLDivElement;
 	let messages: Array<{ body: string; author: string; attributes: JSONValue }> = [];

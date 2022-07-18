@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { activeConversation } from '../store';
+	import { activeConversation } from '../../store';
 
-	import Send from '../assets/Send.svg'
+	import Send from '../../assets/Send.svg'
 
 	export let disabled = false
 

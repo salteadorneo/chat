@@ -6,8 +6,8 @@
 	import { initialize, getConversation, updateAttrConversation, deleteConversation, removeParticipantConversation } from '../services/chat';
 	import { activeConversation, user } from '../store';
 
-	import Conversation from '../components/Conversation.svelte';
-	import ConversationInput from '../components/ConversationInput.svelte';
+	import Conversation from '../components/Room/Conversation.svelte';
+	import ConversationInput from '../components/Room/ConversationInput.svelte';
 	import Participants from '../components/Participants.svelte';
 	
 	import type { Participant } from '@twilio/conversations';
