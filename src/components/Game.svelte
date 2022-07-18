@@ -23,7 +23,7 @@
 <div>
 	<section>
 		<h3>El juego de Alice</h3>
-		<p>Un chat donde pondrás a prueba tus conocimientos con tus invitados.<br /><br />El último en contestar, será eliminado.</p>
+		<p>Un chat donde pondrás a prueba tus conocimientos.<br /><br />El último en acertar, será eliminado.</p>
 		<button on:click={handleStart} disabled={$activeConversation.participants.size <= 1}>Empezar</button>
 	</section>
 </div>

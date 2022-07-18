@@ -43,7 +43,7 @@ button {
 h1, h2 {
     font-size: 36px;
     font-weight: 800;
-    margin: 10px 0;
+    margin: .5em 0;
 }
 
 h2 {
@@ -51,8 +51,8 @@ h2 {
 }
 
 h3 {
-    font-size: 12px;
-    margin: 0 0 20px;
+    font-size: 14px;
+    margin: 0 0 1em;
 }
 
 @keyframes fadeIn {
