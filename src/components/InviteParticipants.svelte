@@ -2,21 +2,9 @@
 	import { updateAttrConversation } from '../services/chat';
 
 	import { activeConversation, user } from '../store';
-
-	import Hearts from '../assets/Hearts.svg';
-	import Spades from '../assets/Spades.svg';
-	import Clubs from '../assets/Clubs.svg';
-	import Diamonds from '../assets/Diamonds.svg';
-
-	const ICONS = [Hearts, Spades, Clubs, Diamonds];
-
-	import Clipboard from '../assets/Clipboard.svg';
-	import Share from '../assets/Share.svg';
-
-	const createdBy = $activeConversation.createdBy
-
-	let participant = ''
-
+	
+	import Participant from '../components/Participant.svelte';
+	
 	const pendingInvitations = () => {
 		if ($activeConversation.attributes.invitations) {
 			$activeConversation.attributes.invitations.forEach(invitation => {
@@ -24,7 +12,7 @@
 					try {
 						$activeConversation.add(invitation)
 					} catch (e) {
-						// console.log(e)
+						console.log(e)
 					}
 				}
 			})
@@ -35,40 +23,27 @@
 		clearInterval(intervalInvitations)
 		intervalInvitations = setInterval(pendingInvitations, 4000)
 	}
-
+	
+	let participant = ''
 	async function handleAddParticipant(e) {
 		e.preventDefault();
-		participant = participant.toLowerCase().trim()
-		if (!participant || participant == '' || participant == $user?.name) return
+		let participant2 = participant.toLowerCase().trim()
+		participant2 += '-' + $activeConversation.uniqueName
+		if (!participant2 || participant2 == '' || participant2 == $user?.name) return
 		try {
-			await $activeConversation.add(participant)
+			await $activeConversation.add(participant2)
 		} catch (e) {
 			const invitations = $activeConversation.attributes.invitations || []
 			let conversation = await updateAttrConversation({ 
 				room: $activeConversation.uniqueName, 
 				params: {
 					...$activeConversation.attributes,
-					invitations: invitations.concat([participant])
+					invitations: invitations.concat([participant2])
 				}
 			});
 			if (conversation) activeConversation.set(conversation);
 		}
 		participant = ''
-	}
-
-	let copied = false
-	function handleCopyLink(participant) {
-		const url = `${window.location.origin}/inv/${$activeConversation.uniqueName}/${participant}`;
-		navigator.clipboard.writeText(url);
-		copied = participant
-		setTimeout(() => {
-			copied = false
-		}, 3000);
-	}
-
-	function handleShareLink(participant) {
-		const url = `${window.location.origin}/inv/${$activeConversation.uniqueName}/${participant}`;
-		window.open(`https://api.whatsapp.com/send?text=${url}`)
 	}
 </script>
 
@@ -77,34 +52,10 @@
 	<p>Envía enlaces privados a cada jugador</p>
 
 	{#each Array.from($activeConversation.participants) as participant, i}
-		<div class="participant">
-			<span><img src={ICONS[i]} alt="" /></span>
-			{participant[1].identity}
-			{#if createdBy != participant[1].identity}
-				<div class="actions">
-					<button on:click={() => handleCopyLink(participant[1].identity)}>
-						<img src={Clipboard} alt="Copy" /> {copied == participant[1].identity ? 'Copiado' : 'Copiar'}
-					</button>
-					<button on:click={() => handleShareLink(participant[1].identity)}>
-						<img src={Share} alt="Share" /> Compartir
-					</button>
-				</div>
-			{/if}
-		</div>
+		<Participant participant={participant[1].identity} />
 	{/each}
-	{#each $activeConversation.attributes.invitations||[] as participant, i}
-		<div class="participant noregister">
-			<span><img src={ICONS[i]} alt="" /></span>
-			{participant}
-			<div class="actions">
-				<button on:click={() => handleCopyLink(participant)}>
-					<img src={Clipboard} alt="Copy" /> {copied == participant ? 'Copiado' : 'Copiar'}
-				</button>
-				<button on:click={() => handleShareLink(participant)}>
-					<img src={Share} alt="Share" /> Compartir
-				</button>
-			</div>
-		</div>
+	{#each ($activeConversation.attributes.invitations || []) as participant, i}
+		<Participant participant={participant} invite />
 	{/each}
 
 	{#if ($activeConversation.participants.size + ($activeConversation.attributes.invitations||[]).length) <= 3}
@@ -129,47 +80,6 @@
 		font-size: 12px;
 		width: 100%;
 		margin: 0 0 2em;
-	}
-
-	.participant {
-		display: flex;
-		align-items: center;
-		margin: 0 0 10px;
-	}
-	.participant span {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 28px;
-		height: 28px;
-		border-radius: 50%;
-		border: 1px solid var(--primary);
-		margin: 0 10px 0 0;
-	}
-	.participant span img {
-		max-height: 50%;
-	}
-	.participant .actions {
-		margin-left: auto;
-	}
-	.participant .actions button {
-		/* display: inline-flex;
-		justify-content: center;
-		align-items: center; */
-		padding: 0 10px;
-		/* width: 22px; */
-		height: 22px;
-		background: var(--primary);
-		color: #f7f7f7;
-		margin: 0 0 0 5px;
-	}
-	.participant .actions button img {
-		height: 14px;
-		vertical-align: middle;
-	}
-
-	.noregister span {
-		opacity: .5;
 	}
 
 	form {
