@@ -1,3 +1,18 @@
+<img src="https://raw.githubusercontent.com/salteadorneo/chat/main/src/assets/Hearts.svg" height="25" /> <img src="https://raw.githubusercontent.com/salteadorneo/chat/main/src/assets/Clubs.svg" height="25" /> <img src="https://raw.githubusercontent.com/salteadorneo/chat/main/src/assets/Diamonds.svg" height="25" /> <img src="https://raw.githubusercontent.com/salteadorneo/chat/main/src/assets/Spades.svg" height="25" />
+
+# El juego de Alice
+
+Un chat secreto donde podrás saber quién es el más listo de tus amigos. Tendrás que ser rápido, el último en acertar cada pregunta, será eliminado 💀
+
+Desarrollado con Svelte, TypeScript y API de Twilio Conversations.
+
+## ~~Autores~~ Han movido las manitas...
+
+- Frontend: __Cristian Adán__
+- Diseño: __Julia Bescos__ · [juliabescos.com](https://juliabescos.com)
+
+-----
+
 <div align="center">
 
   <img width="200" src="https://user-images.githubusercontent.com/1561955/177315611-490d347e-1201-4aff-b09c-d2ea9f453173.png" /><br />
