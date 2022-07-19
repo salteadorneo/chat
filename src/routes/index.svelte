@@ -23,8 +23,8 @@
 		goto(`/lobby`)
 	});
 
-	async function handleAnonymousLogin(e: SubmitEvent) {
-		e.preventDefault();
+	async function handleAnonymousLogin(e) {
+		if (e) e.preventDefault();
 
 		let anonymousName2 = anonymousName.toLowerCase().trim()
 		anonymousName2 += '-' + Math.random().toString(36).substring(2)
@@ -48,6 +48,7 @@
 		<form on:submit={handleAnonymousLogin}>
 			<input
 				bind:value={anonymousName}
+				on:blur={handleAnonymousLogin}
 				type="text"
 				placeholder="Introduce tu nick"
 			/>
