@@ -29,7 +29,7 @@
 		e.preventDefault();
 		let participant2 = participant.toLowerCase().trim()
 		participant2 += '-' + $activeConversation.uniqueName
-		if (!participant2 || participant2 == '' || participant2 == $user?.name) return
+		if (!participant || participant == '' || participant2 == $user?.name) return
 		try {
 			await $activeConversation.add(participant2)
 		} catch (e) {
