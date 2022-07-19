@@ -27,6 +27,7 @@
 		if (e) e.preventDefault();
 
 		let anonymousName2 = anonymousName.toLowerCase().trim()
+		if (!anonymousName2 || anonymousName2 == '') return
 		anonymousName2 += '-' + Math.random().toString(36).substring(2)
 
 		const accessToken = await getAccessToken({ token: `anonymous_${anonymousName2}` });
