@@ -4,6 +4,8 @@
 
 Un chat secreto donde podrás saber quién es el más listo de tus amigos. Tendrás que ser rápido, el último en acertar cada pregunta, será eliminado 💀
 
+Entra en https://chat-salteadorneo.vercel.app/
+
 Desarrollado con Svelte, TypeScript y API de Twilio Conversations.
 
 ## ~~Autores~~ Han movido las manitas...
